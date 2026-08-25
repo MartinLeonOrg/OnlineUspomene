@@ -249,6 +249,7 @@ a {
   letter-spacing: -5px;
 
   max-width: 750px;
+  color:var(--text)
 }
 
 .hero h1 span {
@@ -1170,5 +1171,689 @@ footer {
 
   footer {
     padding: 25px 20px;
+  }
+}
+/* =========================
+   CONTACT FORM
+========================= */
+
+.contact-section {
+  max-width: 1180px;
+  margin: 0 auto;
+
+  padding: 80px 24px 160px;
+}
+
+.contact-wrapper {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+
+  gap: 70px;
+
+  padding: 70px;
+
+  border: 1px solid rgba(83, 62, 46, 0.12);
+  border-radius: 30px;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(232, 181, 155, 0.35),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #f5e8d8,
+      #fffaf2
+    );
+
+  box-shadow:
+    0 30px 80px rgba(94, 67, 46, 0.08);
+
+  overflow: hidden;
+}
+
+.contact-wrapper::before {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  right: -120px;
+  bottom: -140px;
+
+  border-radius: 50%;
+
+  background: rgba(200, 120, 85, 0.12);
+
+  filter: blur(50px);
+
+  pointer-events: none;
+}
+
+/* =========================
+   CONTACT INFO
+========================= */
+
+.contact-info {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.contact-label {
+  color: var(--accent-dark);
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 2px;
+}
+
+.contact-info h2 {
+  margin-top: 22px;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  color: var(--text);
+
+  font-size: clamp(48px, 5vw, 70px);
+
+  line-height: 0.95;
+
+  letter-spacing: -4px;
+}
+
+.contact-info h2 em {
+  color: var(--accent);
+
+  font-style: normal;
+}
+
+.contact-info > p {
+  max-width: 390px;
+
+  margin-top: 28px;
+
+  color: var(--text-soft);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+/* =========================
+   CONTACT DETAILS
+========================= */
+
+.contact-details {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+  margin-top: 45px;
+}
+
+.contact-detail {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.contact-detail span {
+  color: var(--muted);
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1.5px;
+}
+
+.contact-detail a,
+.contact-detail strong {
+  color: var(--text);
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.contact-detail a {
+  transition: color 0.3s ease;
+}
+
+.contact-detail a:hover {
+  color: var(--accent);
+}
+
+/* =========================
+   FORM
+========================= */
+
+.contact-form {
+  position: relative;
+  z-index: 2;
+
+  padding: 34px;
+
+  border: 1px solid rgba(83, 62, 46, 0.1);
+
+  border-radius: 22px;
+
+  background: rgba(255, 250, 242, 0.72);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 20px 50px rgba(94, 67, 46, 0.06);
+}
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: var(--text);
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 14px 15px;
+
+  border: 1px solid rgba(83, 62, 46, 0.12);
+
+  border-radius: 11px;
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  color: var(--text);
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 14px;
+
+  transition:
+    border 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #b3a59a;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: rgba(200, 120, 85, 0.25);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: rgba(200, 120, 85, 0.55);
+
+  background: #fffaf2;
+
+  box-shadow:
+    0 0 0 4px rgba(200, 120, 85, 0.08);
+}
+
+.form-group textarea {
+  min-height: 135px;
+
+  resize: vertical;
+
+  line-height: 1.6;
+}
+
+.form-group select {
+  cursor: pointer;
+
+  appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #9c8d80 50%),
+    linear-gradient(135deg, #9c8d80 50%, transparent 50%);
+
+  background-position:
+    calc(100% - 18px) 19px,
+    calc(100% - 13px) 19px;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat: no-repeat;
+}
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.contact-submit {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 5px;
+
+  padding: 16px 18px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(200, 120, 85, 0.2);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.contact-submit span {
+  font-size: 20px;
+
+  transition: transform 0.3s ease;
+}
+
+.contact-submit:hover {
+  background: var(--accent-dark);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 15px 30px rgba(200, 120, 85, 0.25);
+}
+
+.contact-submit:hover span {
+  transform: translate(4px, -4px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+
+    padding: 50px;
+  }
+
+  .contact-info > p {
+    max-width: 600px;
+  }
+
+  .contact-details {
+    flex-direction: row;
+
+    gap: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 60px 20px 100px;
+  }
+
+  .contact-wrapper {
+    padding: 35px 20px;
+
+    border-radius: 22px;
+
+    gap: 40px;
+  }
+
+  .contact-info h2 {
+    letter-spacing: -3px;
+  }
+
+  .contact-form {
+    padding: 22px 18px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .contact-details {
+    flex-direction: column;
+
+    gap: 18px;
+
+    margin-top: 30px;
+  }
+}
+/* =========================
+   DEMO CTA
+========================= */
+
+.demo-section {
+  position: relative;
+
+  max-width: 1180px;
+
+  margin: 0 auto;
+
+  padding: 20px 24px 140px;
+
+  overflow: hidden;
+}
+
+.demo-content {
+  position: relative;
+
+  padding: 100px 40px;
+
+  border: 1px solid rgba(83, 62, 46, 0.12);
+
+  border-radius: 30px;
+
+  text-align: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(200, 120, 85, 0.2),
+      transparent 45%
+    ),
+    linear-gradient(
+      135deg,
+      #f3dfcd,
+      #fff8ee
+    );
+
+  box-shadow:
+    0 30px 80px rgba(94, 67, 46, 0.08);
+}
+
+.demo-content::before {
+  content: "";
+
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(200, 120, 85, 0.12);
+
+  pointer-events: none;
+}
+
+.demo-content::after {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(200, 120, 85, 0.08);
+
+  pointer-events: none;
+}
+
+.demo-label {
+  position: relative;
+  z-index: 2;
+
+  color: var(--accent-dark);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+}
+
+.demo-content h2 {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 22px;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  color: var(--text);
+
+  font-size: clamp(48px, 6vw, 78px);
+
+  line-height: 0.95;
+
+  letter-spacing: -4px;
+}
+
+.demo-content h2 em {
+  color: var(--accent);
+
+  font-style: normal;
+}
+
+.demo-content p {
+  position: relative;
+  z-index: 2;
+
+  max-width: 520px;
+
+  margin: 28px auto 0;
+
+  color: var(--text-soft);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+.demo-button {
+  position: relative;
+  z-index: 2;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  margin-top: 35px;
+
+  padding: 16px 22px;
+
+  border-radius: 13px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  box-shadow:
+    0 12px 30px rgba(200, 120, 85, 0.25);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.demo-button span {
+  font-size: 19px;
+
+  transition: transform 0.3s ease;
+}
+
+.demo-button:hover {
+  background: var(--accent-dark);
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 18px 35px rgba(200, 120, 85, 0.3);
+}
+
+.demo-button:hover span {
+  transform: translate(4px, -4px);
+}
+
+/* Decorative circles */
+
+.demo-decoration {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  animation: demoFloat 6s ease-in-out infinite;
+}
+
+.decoration-one {
+  width: 80px;
+  height: 80px;
+
+  left: 30px;
+  top: 80px;
+
+  background: rgba(200, 120, 85, 0.12);
+
+  filter: blur(2px);
+}
+
+.decoration-two {
+  width: 110px;
+  height: 110px;
+
+  right: 20px;
+  bottom: 100px;
+
+  background: rgba(154, 168, 120, 0.12);
+
+  filter: blur(3px);
+
+  animation-delay: -3s;
+}
+
+@keyframes demoFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* =========================
+   DEMO RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+  .demo-section {
+    padding: 20px 20px 100px;
+  }
+
+  .demo-content {
+    padding: 75px 20px;
+    border-radius: 23px;
+  }
+
+  .demo-content h2 {
+    letter-spacing: -3px;
+  }
+
+  .demo-content p {
+    font-size: 14px;
+  }
+
+  .demo-button {
+    width: 100%;
+  }
+
+  .demo-content::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .demo-content::after {
+    width: 200px;
+    height: 200px;
   }
 }

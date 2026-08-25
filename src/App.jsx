@@ -1,19 +1,22 @@
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Demo from "./pages/Demo.jsx";
 
-function App() {
+function Home() {
   return (
     <div className="app">
       <nav className="navbar">
         <div className="nav-container">
           <a href="/" className="logo">
             <span className="logo-mark">✦</span>
-            <span>Čestitke</span>
+            <span>ReMoment </span>
           </a>
 
           <div className="nav-links">
             <a href="#dizajn">Dizajn</a>
             <a href="#cjenik">Cjenik</a>
             <a href="#kontakt">Kontakt</a>
+            <a href="#demo">Demo</a>
           </div>
         </div>
       </nav>
@@ -181,35 +184,128 @@ function App() {
           </div>
         </section>
 
-        <section className="contact" id="kontakt">
-          <div className="contact-content">
-            <span>03 — KONTAKT</span>
+        <section className="contact-section" id="kontakt">
+          <div className="contact-wrapper">
+            <div className="contact-info">
+              <span className="contact-label">03 — KONTAKT</span>
+
+              <h2>
+                Želiš prilagoditi
+                <br />
+                <em>pozivnicu?</em>
+              </h2>
+
+              <p>
+                Slobodno nas kontaktiraj kako bi prilagodili pozivnicu tvojim željama. Pošalji nam
+                upit i javit ćemo ti se u najkraćem mogućem roku.
+              </p>
+
+              <div className="contact-details">
+                <div className="contact-detail">
+                  <span>Email</span>
+                  <a href="mailto:hello@designly.com">
+                    hello@designly.com
+                  </a>
+                </div>
+
+                <div className="contact-detail">
+                  <span>Lokacija</span>
+                  <strong>Daruvar, Hrvatska</strong>
+                </div>
+              </div>
+            </div>
+
+            <form className="contact-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="name">Ime i prezime</label>
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="Ivan Horvat"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="ivan@email.com"
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="project">Tvoje želje</label>
+
+                <select id="project" defaultValue="">
+                  <option value="" disabled>
+                    Odaberi želju
+                  </option>
+                  <option value="web">Pozivnica</option>
+                  <option value="uiux">Pozivnica + Uspomene gostiju</option>
+                  <option value="branding">Uspomene gostiju</option>
+                  <option value="other">Nešto drugo</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="message">Poruka</label>
+
+                <textarea
+                  id="message"
+                  rows="5"
+                  placeholder="Reci nam nešto više..."
+                />
+              </div>
+
+              <button type="submit" className="contact-submit">
+                Pošalji upit
+                <span>↗</span>
+              </button>
+            </form>
+          </div>
+        </section>
+        <section className="demo-section" id="demo">
+          <div className="demo-content">
+            <span className="demo-label">ReMoment — DEMO</span>
 
             <h2>
-              Imaš ideju?
+              Tvoj događaj.
               <br />
-              <em>Napravimo je stvarnom.</em>
+              <em>Vaše uspomene.</em>
             </h2>
 
             <p>
-              Ispričaj nam o svom projektu i javit ćemo ti se u najkraćem
-              mogućem roku.
+              Pogledaj kako ReMoment pretvara svaki događaj u zajedničku
+              kolekciju uspomena koje ostaju zauvijek.
             </p>
 
-            <a href="mailto:hello@designly.com" className="contact-button">
-              hello@designly.com
+            <a href="/demo" className="demo-button">
+              Pogledaj demo
               <span>↗</span>
             </a>
           </div>
+
+          <div className="demo-decoration decoration-one"></div>
+          <div className="demo-decoration decoration-two"></div>
         </section>
       </main>
 
       <footer>
-        <span>© 2026 Designly</span>
+        <span>© 2026 Momento</span>
         <span>Made with intention.</span>
       </footer>
     </div>
   );
+};
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/demo" element={<Demo />} />
+    </Routes>
+  );
 }
-
 export default App;

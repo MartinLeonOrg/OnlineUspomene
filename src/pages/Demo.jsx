@@ -2,8 +2,8 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import heic2any from "heic2any";
 
 const WORKER = import.meta.env.VITE_WORKER_URL;
-const NAMES  = import.meta.env.VITE_COUPLE_NAMES  || "Julia & Dawid";
-const DATE   = import.meta.env.VITE_WEDDING_DATE  || "20 CZERWCA 2026";
+const NAMES  = import.meta.env.VITE_COUPLE_NAMES  || "Ana & Marko";
+const DATE   = import.meta.env.VITE_WEDDING_DATE  || "31 veljače 2027";
 const MAX    = 10;
 
 const PALETTE = {
