@@ -106,48 +106,73 @@ function Home() {
           </div>
         </section>
 
-        <section className="services" id="dizajn">
-          <div className="section-heading">
-            <span>01 — ŠTO RADIMO</span>
-            <h2>
-              Sve što trebaš za
-              <br />
-              <em>bolji digitalni proizvod.</em>
-            </h2>
-          </div>
+        <section className="invitations-section" id="dizajn">
+  <div className="section-heading">
+    <span>01 — POZIVNICE</span>
 
-          <div className="service-grid">
-            <article className="service-card">
-              <span className="service-number">01</span>
-              <h3>Web dizajn</h3>
-              <p>
-                Moderne i funkcionalne web stranice napravljene da izgledaju
-                odlično na svakom uređaju.
-              </p>
-              <span className="service-arrow">↗</span>
-            </article>
+    <h2>
+      Dizajn koji se
+      <br />
+      <em>pamti.</em>
+    </h2>
+  </div>
 
-            <article className="service-card featured">
-              <span className="service-number">02</span>
-              <h3>UI / UX</h3>
-              <p>
-                Promišljena korisnička iskustva koja spajaju estetiku,
-                jednostavnost i funkcionalnost.
-              </p>
-              <span className="service-arrow">↗</span>
-            </article>
+  <div className="invitation-grid">
+    <article className="invitation-card">
+      <div className="invitation-preview">
+        <img
+          src="/invitation.png"
+          alt="Primjer digitalne pozivnice"
+        />
+      </div>
 
-            <article className="service-card">
-              <span className="service-number">03</span>
-              <h3>Branding</h3>
-              <p>
-                Vizualni identitet koji vašem brendu daje karakter i
-                prepoznatljivost.
-              </p>
-              <span className="service-arrow">↗</span>
-            </article>
-          </div>
-        </section>
+      <div className="invitation-info">
+        <div>
+          <span>01</span>
+          <h3>Elegant</h3>
+        </div>
+
+        <span className="invitation-arrow">↗</span>
+      </div>
+    </article>
+
+    <article className="invitation-card">
+      <div className="invitation-preview">
+        <img
+          src="/invitation.png"
+          alt="Primjer digitalne pozivnice"
+        />
+      </div>
+
+      <div className="invitation-info">
+        <div>
+          <span>02</span>
+          <h3>Moments</h3>
+        </div>
+
+        <span className="invitation-arrow">↗</span>
+      </div>
+    </article>
+
+    <article className="invitation-card">
+      <div className="invitation-preview">
+        <img
+          src="/invitation.png"
+          alt="Primjer digitalne pozivnice"
+        />
+      </div>
+
+      <div className="invitation-info">
+        <div>
+          <span>03</span>
+          <h3>Forever</h3>
+        </div>
+
+        <span className="invitation-arrow">↗</span>
+      </div>
+    </article>
+  </div>
+</section>
 
         <section className="pricing" id="cjenik">
           <div className="section-heading">

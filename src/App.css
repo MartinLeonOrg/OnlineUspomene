@@ -642,105 +642,285 @@ a {
 }
 
 /* =========================
-   SERVICES
+   INVITATIONS
 ========================= */
 
-.service-grid {
+.invitations-section {
+  max-width: 1180px;
+
+  margin: 0 auto;
+
+  padding: 150px 24px;
+}
+
+.invitation-grid {
   display: grid;
 
   grid-template-columns: repeat(3, 1fr);
 
-  gap: 15px;
+  gap: 18px;
 
   margin-top: 70px;
 }
 
-.service-card {
+/* =========================
+   INVITATION CARD
+========================= */
+
+.invitation-card {
   position: relative;
-
-  min-height: 310px;
-
-  padding: 30px;
 
   border: 1px solid var(--border);
 
-  border-radius: 20px;
+  border-radius: 22px;
 
-  background: rgba(255, 250, 242, 0.65);
+  background: #fffaf2;
+
+  overflow: hidden;
 
   box-shadow:
-    0 15px 40px rgba(94, 67, 46, 0.04);
+    0 15px 40px rgba(94, 67, 46, 0.06);
 
   transition:
     transform 0.4s ease,
-    background 0.4s ease,
-    border 0.4s ease,
-    box-shadow 0.4s ease;
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
 }
 
-.service-card:hover {
+.invitation-card:hover {
   transform: translateY(-8px);
-
-  background: #fffaf2;
 
   border-color: rgba(200, 120, 85, 0.25);
 
   box-shadow:
-    0 25px 55px rgba(94, 67, 46, 0.1);
+    0 25px 60px rgba(94, 67, 46, 0.13);
 }
 
-.service-card.featured {
-  background:
-    linear-gradient(
-      145deg,
-      #f0dfce,
-      #fff8ed
-    );
+/* =========================
+   IMAGE WINDOW
+========================= */
+
+.invitation-preview {
+  position: relative;
+
+  width: 100%;
+
+  height: 480px;
+
+  overflow: hidden;
+
+  background: #f1e5d7;
 }
 
-.service-number {
+/*
+  Lagani gradient na vrhu i dnu
+  daje osjećaj da slika ulazi/izlazi
+  iz prozora.
+*/
+
+.invitation-preview::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 80px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(245, 232, 216, 0.25)
+  );
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+.invitation-preview img {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  height: auto;
+
+  display: block;
+
+  /*
+    Početna pozicija
+  */
+  transform: translateY(0);
+
+  transition:
+    transform 5s cubic-bezier(0.25, 0.8, 0.25, 0.50);
+
+  will-change: transform;
+}
+
+/*
+  KADA SE HOVERA:
+  slika ide prema dolje
+*/
+
+.invitation-card:hover .invitation-preview img {
+  transform: translateY(-48%);
+}
+
+/* =========================
+   CARD INFO
+========================= */
+
+.invitation-info {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 22px 24px;
+
+  border-top: 1px solid var(--border);
+
+  background: #fffaf2;
+}
+
+.invitation-info div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.invitation-info div > span {
   color: var(--accent);
 
-  font-size: 12px;
+  font-size: 10px;
 
   font-weight: 600;
+
+  letter-spacing: 1.5px;
 }
 
-.service-card h3 {
-  margin-top: 100px;
-
+.invitation-info h3 {
   font-family: "Space Grotesk", sans-serif;
 
   color: var(--text);
 
-  font-size: 28px;
+  font-size: 20px;
+
+  font-weight: 600;
+
+  letter-spacing: -0.5px;
 }
 
-.service-card p {
-  margin-top: 12px;
+.invitation-arrow {
+  display: flex;
 
-  color: var(--text-soft);
+  align-items: center;
+  justify-content: center;
 
-  font-size: 14px;
+  width: 36px;
+  height: 36px;
 
-  line-height: 1.6;
-}
+  border: 1px solid var(--border);
 
-.service-arrow {
-  position: absolute;
-
-  top: 28px;
-  right: 30px;
+  border-radius: 50%;
 
   color: var(--accent);
 
-  font-size: 22px;
+  font-size: 18px;
 
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.4s ease,
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
-.service-card:hover .service-arrow {
-  transform: translate(4px, -4px);
+.invitation-card:hover .invitation-arrow {
+  transform: translate(3px, -3px);
+
+  background: var(--accent);
+
+  color: white;
+}
+
+/* =========================
+   INDIVIDUAL CARDS
+========================= */
+
+/*
+  Svaka kartica može imati malo
+  drugačiji osjećaj.
+*/
+
+.invitation-card:nth-child(2) {
+  transform: translateY(25px);
+}
+
+.invitation-card:nth-child(2):hover {
+  transform: translateY(17px);
+}
+
+.invitation-card:nth-child(3) {
+  transform: translateY(50px);
+}
+
+.invitation-card:nth-child(3):hover {
+  transform: translateY(42px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .invitation-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .invitation-card:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .invitations-section {
+    padding: 100px 20px;
+  }
+
+  .invitation-grid {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    margin-top: 50px;
+  }
+
+  .invitation-card:nth-child(2),
+  .invitation-card:nth-child(3) {
+    transform: none;
+
+    display: block;
+  }
+
+  .invitation-card:nth-child(2):hover,
+  .invitation-card:nth-child(3):hover {
+    transform: translateY(-8px);
+  }
+
+  .invitation-preview {
+    height: 500px;
+  }
+
+  .invitation-card:hover .invitation-preview img {
+    transform: translateY(-45%);
+  }
 }
 
 /* =========================
