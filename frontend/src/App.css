@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
   --bg: #faf6ef;
@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: var(--bg);
   color: var(--text);
 }
@@ -40,17 +40,8 @@ a {
   min-height: 100vh;
   overflow: hidden;
   background:
-    radial-gradient(
-      circle at 80% 5%,
-      rgba(200, 120, 85, 0.12),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 10% 30%,
-      rgba(232, 181, 155, 0.13),
-      transparent 25%
-    ),
-    var(--bg);
+    radial-gradient(circle at 80% 5%, rgba(200, 120, 85, 0.12), transparent 28%),
+    radial-gradient(circle at 10% 30%, rgba(232, 181, 155, 0.13), transparent 25%), var(--bg);
 }
 
 /* =========================
@@ -95,7 +86,7 @@ a {
   align-items: center;
   gap: 10px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -154,7 +145,7 @@ a {
 }
 
 .nav-links a::after {
-  content: "";
+  content: '';
 
   position: absolute;
   bottom: 4px;
@@ -240,7 +231,7 @@ a {
 }
 
 .hero h1 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   font-size: clamp(60px, 7vw, 92px);
 
@@ -249,17 +240,13 @@ a {
   letter-spacing: -5px;
 
   max-width: 750px;
-  color:var(--text)
+  color: var(--text);
 }
 
 .hero h1 span {
   color: var(--accent);
 
-  background: linear-gradient(
-    90deg,
-    #c87855,
-    #d99b7c
-  );
+  background: linear-gradient(90deg, #c87855, #d99b7c);
 
   -webkit-background-clip: text;
   background-clip: text;
@@ -316,15 +303,13 @@ a {
   background: var(--accent);
   color: white;
 
-  box-shadow:
-    0 10px 25px rgba(200, 120, 85, 0.22);
+  box-shadow: 0 10px 25px rgba(200, 120, 85, 0.22);
 }
 
 .btn-primary:hover {
   background: var(--accent-dark);
 
-  box-shadow:
-    0 14px 30px rgba(200, 120, 85, 0.28);
+  box-shadow: 0 14px 30px rgba(200, 120, 85, 0.28);
 }
 
 .btn-primary span {
@@ -368,20 +353,13 @@ a {
 
   padding: 24px;
 
-  transform:
-    translateX(-50%)
-    rotate(5deg);
+  transform: translateX(-50%) rotate(5deg);
 
   border: 1px solid rgba(83, 62, 46, 0.12);
 
   border-radius: 25px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #e8c5ae,
-      #f4dfce
-    );
+  background: linear-gradient(145deg, #e8c5ae, #f4dfce);
 
   box-shadow:
     30px 30px 70px rgba(94, 67, 46, 0.16),
@@ -391,10 +369,7 @@ a {
 }
 
 .hero-visual:hover .card-main {
-  transform:
-    translateX(-50%)
-    rotate(0deg)
-    translateY(-8px);
+  transform: translateX(-50%) rotate(0deg) translateY(-8px);
 }
 
 .card-top {
@@ -474,8 +449,7 @@ a {
 
   backdrop-filter: blur(15px);
 
-  box-shadow:
-    0 20px 50px rgba(94, 67, 46, 0.12);
+  box-shadow: 0 20px 50px rgba(94, 67, 46, 0.12);
 
   display: flex;
   flex-direction: column;
@@ -508,7 +482,6 @@ a {
 
   animation-delay: -2s;
 }
-
 
 /* =========================
    GLOW
@@ -555,11 +528,11 @@ a {
   padding: 150px 24px;
 }
 
-.section-intro-text{
+.section-intro-text {
   max-width: 550px;
 }
 .section-intro {
- display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 
@@ -599,8 +572,7 @@ a {
 
   background: rgba(255, 250, 242, 0.7);
 
-  box-shadow:
-    0 15px 40px rgba(94, 67, 46, 0.04);
+  box-shadow: 0 15px 40px rgba(94, 67, 46, 0.04);
 
   overflow: hidden;
 
@@ -615,12 +587,11 @@ a {
 
   border-color: rgba(200, 120, 85, 0.25);
 
-  box-shadow:
-    0 25px 55px rgba(94, 67, 46, 0.1);
+  box-shadow: 0 25px 55px rgba(94, 67, 46, 0.1);
 }
 
 .process-card::after {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -696,7 +667,7 @@ a {
 .process-card h3 {
   margin-top: 25px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -743,12 +714,7 @@ a {
 }
 
 .featured-process {
-  background:
-    linear-gradient(
-      145deg,
-      #f1dfcd,
-      #fffaf2
-    );
+  background: linear-gradient(145deg, #f1dfcd, #fffaf2);
 
   border-color: rgba(200, 120, 85, 0.2);
 }
@@ -774,12 +740,7 @@ a {
   border-radius: 25px;
 
   background:
-    radial-gradient(
-      circle at 80% 50%,
-      rgba(200, 120, 85, 0.16),
-      transparent 35%
-    ),
-    #f3e5d5;
+    radial-gradient(circle at 80% 50%, rgba(200, 120, 85, 0.16), transparent 35%), #f3e5d5;
 
   border: 1px solid var(--border);
 
@@ -805,7 +766,7 @@ a {
 .memory-banner h3 {
   margin-top: 18px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -857,7 +818,7 @@ a {
 }
 
 .memory-stats strong {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--accent-dark);
 
@@ -959,7 +920,7 @@ a {
 }
 
 .stats strong {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -998,7 +959,7 @@ a {
 .section-heading h2 {
   margin-top: 22px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -1052,8 +1013,7 @@ a {
 
   overflow: hidden;
 
-  box-shadow:
-    0 15px 40px rgba(94, 67, 46, 0.06);
+  box-shadow: 0 15px 40px rgba(94, 67, 46, 0.06);
 
   transition:
     transform 0.4s ease,
@@ -1066,8 +1026,7 @@ a {
 
   border-color: rgba(200, 120, 85, 0.25);
 
-  box-shadow:
-    0 25px 60px rgba(94, 67, 46, 0.13);
+  box-shadow: 0 25px 60px rgba(94, 67, 46, 0.13);
 }
 
 /* =========================
@@ -1093,7 +1052,7 @@ a {
 */
 
 .invitation-preview::after {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -1103,11 +1062,7 @@ a {
 
   height: 80px;
 
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(245, 232, 216, 0.25)
-  );
+  background: linear-gradient(to bottom, transparent, rgba(245, 232, 216, 0.25));
 
   pointer-events: none;
 
@@ -1131,8 +1086,7 @@ a {
   */
   transform: translateY(0);
 
-  transition:
-    transform 5s cubic-bezier(0.25, 0.8, 0.25, 0.50);
+  transition: transform 5s cubic-bezier(0.25, 0.8, 0.25, 0.5);
 
   will-change: transform;
 }
@@ -1182,7 +1136,7 @@ a {
 }
 
 .invitation-info h3 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -1324,8 +1278,7 @@ a {
 
   background: rgba(255, 250, 242, 0.7);
 
-  box-shadow:
-    0 15px 40px rgba(94, 67, 46, 0.04);
+  box-shadow: 0 15px 40px rgba(94, 67, 46, 0.04);
 }
 
 .price-card > span {
@@ -1341,7 +1294,7 @@ a {
 .price-card h3 {
   margin-top: 35px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -1378,15 +1331,9 @@ a {
 .price-card.popular {
   border-color: rgba(200, 120, 85, 0.3);
 
-  background:
-    linear-gradient(
-      145deg,
-      #f0dfce,
-      #fff9f0
-    );
+  background: linear-gradient(145deg, #f0dfce, #fff9f0);
 
-  box-shadow:
-    0 20px 50px rgba(200, 120, 85, 0.1);
+  box-shadow: 0 20px 50px rgba(200, 120, 85, 0.1);
 }
 
 .popular-label {
@@ -1429,16 +1376,9 @@ a {
 
   text-align: center;
 
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(200, 120, 85, 0.15),
-      transparent 45%
-    ),
-    #f4e9da;
+  background: radial-gradient(circle at 50% 0%, rgba(200, 120, 85, 0.15), transparent 45%), #f4e9da;
 
-  box-shadow:
-    0 25px 70px rgba(94, 67, 46, 0.08);
+  box-shadow: 0 25px 70px rgba(94, 67, 46, 0.08);
 }
 
 .contact-content > span {
@@ -1454,7 +1394,7 @@ a {
 .contact h2 {
   margin-top: 25px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -1510,8 +1450,7 @@ a {
 
   transform: translateY(-3px);
 
-  box-shadow:
-    0 12px 25px rgba(200, 120, 85, 0.2);
+  box-shadow: 0 12px 25px rgba(200, 120, 85, 0.2);
 }
 
 /* =========================
@@ -1589,18 +1528,15 @@ footer {
 
 @keyframes pulse {
   0% {
-    box-shadow:
-      0 0 0 0 rgba(154, 168, 120, 0.5);
+    box-shadow: 0 0 0 0 rgba(154, 168, 120, 0.5);
   }
 
   70% {
-    box-shadow:
-      0 0 0 8px rgba(154, 168, 120, 0);
+    box-shadow: 0 0 0 8px rgba(154, 168, 120, 0);
   }
 
   100% {
-    box-shadow:
-      0 0 0 0 rgba(154, 168, 120, 0);
+    box-shadow: 0 0 0 0 rgba(154, 168, 120, 0);
   }
 }
 
@@ -1752,25 +1688,16 @@ footer {
   border-radius: 30px;
 
   background:
-    radial-gradient(
-      circle at 10% 10%,
-      rgba(232, 181, 155, 0.35),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #f5e8d8,
-      #fffaf2
-    );
+    radial-gradient(circle at 10% 10%, rgba(232, 181, 155, 0.35), transparent 30%),
+    linear-gradient(135deg, #f5e8d8, #fffaf2);
 
-  box-shadow:
-    0 30px 80px rgba(94, 67, 46, 0.08);
+  box-shadow: 0 30px 80px rgba(94, 67, 46, 0.08);
 
   overflow: hidden;
 }
 
 .contact-wrapper::before {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -1815,7 +1742,7 @@ footer {
 .contact-info h2 {
   margin-top: 22px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -1911,8 +1838,7 @@ footer {
 
   backdrop-filter: blur(12px);
 
-  box-shadow:
-    0 20px 50px rgba(94, 67, 46, 0.06);
+  box-shadow: 0 20px 50px rgba(94, 67, 46, 0.06);
 }
 
 .form-row {
@@ -1958,7 +1884,7 @@ footer {
 
   color: var(--text);
 
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
 
   font-size: 14px;
 
@@ -1986,8 +1912,7 @@ footer {
 
   background: #fffaf2;
 
-  box-shadow:
-    0 0 0 4px rgba(200, 120, 85, 0.08);
+  box-shadow: 0 0 0 4px rgba(200, 120, 85, 0.08);
 }
 
 .form-group textarea {
@@ -2042,7 +1967,7 @@ footer {
 
   color: white;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
 
   font-size: 14px;
 
@@ -2050,8 +1975,7 @@ footer {
 
   cursor: pointer;
 
-  box-shadow:
-    0 10px 25px rgba(200, 120, 85, 0.2);
+  box-shadow: 0 10px 25px rgba(200, 120, 85, 0.2);
 
   transition:
     transform 0.3s ease,
@@ -2070,8 +1994,7 @@ footer {
 
   transform: translateY(-3px);
 
-  box-shadow:
-    0 15px 30px rgba(200, 120, 85, 0.25);
+  box-shadow: 0 15px 30px rgba(200, 120, 85, 0.25);
 }
 
 .contact-submit:hover span {
@@ -2167,23 +2090,14 @@ footer {
   overflow: hidden;
 
   background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(200, 120, 85, 0.2),
-      transparent 45%
-    ),
-    linear-gradient(
-      135deg,
-      #f3dfcd,
-      #fff8ee
-    );
+    radial-gradient(circle at 50% 0%, rgba(200, 120, 85, 0.2), transparent 45%),
+    linear-gradient(135deg, #f3dfcd, #fff8ee);
 
-  box-shadow:
-    0 30px 80px rgba(94, 67, 46, 0.08);
+  box-shadow: 0 30px 80px rgba(94, 67, 46, 0.08);
 }
 
 .demo-content::before {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -2203,7 +2117,7 @@ footer {
 }
 
 .demo-content::after {
-  content: "";
+  content: '';
 
   position: absolute;
 
@@ -2241,7 +2155,7 @@ footer {
 
   margin-top: 22px;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
 
   color: var(--text);
 
@@ -2298,8 +2212,7 @@ footer {
 
   font-weight: 600;
 
-  box-shadow:
-    0 12px 30px rgba(200, 120, 85, 0.25);
+  box-shadow: 0 12px 30px rgba(200, 120, 85, 0.25);
 
   transition:
     transform 0.3s ease,
@@ -2318,8 +2231,7 @@ footer {
 
   transform: translateY(-4px);
 
-  box-shadow:
-    0 18px 35px rgba(200, 120, 85, 0.3);
+  box-shadow: 0 18px 35px rgba(200, 120, 85, 0.3);
 }
 
 .demo-button:hover span {
