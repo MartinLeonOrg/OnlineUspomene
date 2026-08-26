@@ -4,6 +4,8 @@ const BUCKET_NAME = "wedding-photos";
 
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
+    "https://onlineuspomene.netlify.app",
+
 ];
 
 export default {
