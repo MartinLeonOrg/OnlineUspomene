@@ -1,5 +1,7 @@
 # Online Uspomene
 
+LINK: https://onlineuspomene.netlify.app/
+
 Online Uspomene je web aplikacija za dijeljenje fotografija s događaja, prvenstveno vjenčanja.
 
 Gosti mogu otvoriti javnu stranicu događaja, dodavati fotografije sa svojih uređaja i pregledavati zajedničku galeriju bez potrebe za instalacijom aplikacije ili kreiranjem korisničkog računa.
