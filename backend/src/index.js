@@ -38,7 +38,12 @@ export default {
         return await presignEventUpload(request, env, slug);
       }
 
-      // POST /events/:slug/photos
+      if (request.method === "GET" && photosMatch) {
+        const slug = decodeURIComponent(photosMatch[1]);
+
+        return await getEventPhotos(request, env, slug);
+      }
+
       if (request.method === "POST" && photosMatch) {
         const slug = decodeURIComponent(photosMatch[1]);
 
@@ -148,6 +153,60 @@ async function presignEventUpload(request, env, slug) {
     uploadUrl: signedRequest.url,
     key,
   });
+}
+
+async function getEventPhotos(request, env, slug) {
+  const event = await env.online_uspomene_db
+    .prepare(
+      `
+      SELECT id, is_active
+      FROM events
+      WHERE slug = ?
+      LIMIT 1
+    `,
+    )
+    .bind(slug)
+    .first();
+
+  if (!event) {
+    return jsonResponse(request, { error: "Događaj nije pronađen." }, 404);
+  }
+
+  const result = await env.online_uspomene_db
+    .prepare(
+      `
+      SELECT
+        id,
+        r2_key,
+        original_name,
+        content_type,
+        file_size,
+        guest_name,
+        message,
+        status,
+        created_at
+      FROM photos
+      WHERE event_id = ?
+      ORDER BY created_at DESC
+    `,
+    )
+    .bind(event.id)
+    .all();
+
+  const photos = result.results.map((photo) => ({
+    id: photo.id,
+    key: photo.r2_key,
+    url: `${env.BUCKET_PUBLIC_URL}/${photo.r2_key}`,
+    originalName: photo.original_name,
+    contentType: photo.content_type,
+    fileSize: photo.file_size,
+    guestName: photo.guest_name,
+    message: photo.message,
+    status: photo.status,
+    uploaded: photo.created_at,
+  }));
+
+  return jsonResponse(request, photos);
 }
 
 async function createPhoto(request, env, slug) {

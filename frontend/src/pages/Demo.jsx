@@ -79,7 +79,7 @@ export default function WeddingApp() {
   const loadPhotos = async () => {
     setLoadingGallery(true);
     try {
-      const res = await fetch(`${WORKER}/photos`);
+      const res = await fetch(`${WORKER}/events/${EVENT_SLUG}/photos`);
       const data = await res.json();
       setPhotos(data.sort((a, b) => new Date(b.uploaded) - new Date(a.uploaded)));
     } catch (e) {
