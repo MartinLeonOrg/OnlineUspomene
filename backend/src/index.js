@@ -4,8 +4,7 @@ const BUCKET_NAME = "wedding-photos";
 
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
-    "https://onlineuspomene.netlify.app",
-
+  "https://onlineuspomene.netlify.app",
 ];
 
 export default {
@@ -19,17 +18,44 @@ export default {
     }
 
     try {
-      if (
-        request.method === "POST" &&
-        url.pathname === "/presign"
-      ) {
+      const eventMatch = url.pathname.match(/^\/events\/([^/]+)$/);
+
+      const presignMatch = url.pathname.match(/^\/events\/([^/]+)\/presign$/);
+
+      const photosMatch = url.pathname.match(/^\/events\/([^/]+)\/photos$/);
+
+      // GET /events/:slug
+      if (request.method === "GET" && eventMatch) {
+        const slug = decodeURIComponent(eventMatch[1]);
+
+        return await getEvent(request, env, slug);
+      }
+
+      // POST /events/:slug/presign
+      if (request.method === "POST" && presignMatch) {
+        const slug = decodeURIComponent(presignMatch[1]);
+
+        return await presignEventUpload(request, env, slug);
+      }
+
+      if (request.method === "GET" && photosMatch) {
+        const slug = decodeURIComponent(photosMatch[1]);
+
+        return await getEventPhotos(request, env, slug);
+      }
+
+      if (request.method === "POST" && photosMatch) {
+        const slug = decodeURIComponent(photosMatch[1]);
+
+        return await createPhoto(request, env, slug);
+      }
+
+      // STARI API - privremeno ostavljamo zbog postojećeg frontenda
+      if (request.method === "POST" && url.pathname === "/presign") {
         return await presignUpload(request, env);
       }
 
-      if (
-        request.method === "GET" &&
-        url.pathname === "/photos"
-      ) {
+      if (request.method === "GET" && url.pathname === "/photos") {
         return await getPhotos(request, env);
       }
 
@@ -38,7 +64,7 @@ export default {
         {
           error: "Ruta nije pronađena.",
         },
-        404
+        404,
       );
     } catch (error) {
       console.error(error);
@@ -48,11 +74,259 @@ export default {
         {
           error: "Dogodila se greška na poslužitelju.",
         },
-        500
+        500,
       );
     }
   },
 };
+
+async function presignEventUpload(request, env, slug) {
+  const event = await env.online_uspomene_db
+    .prepare(
+      `
+      SELECT id, slug, is_active
+      FROM events
+      WHERE slug = ?
+      LIMIT 1
+    `,
+    )
+    .bind(slug)
+    .first();
+
+  if (!event) {
+    return jsonResponse(request, { error: "Događaj nije pronađen." }, 404);
+  }
+
+  if (event.is_active !== 1) {
+    return jsonResponse(
+      request,
+      { error: "Događaj trenutno nije aktivan." },
+      403,
+    );
+  }
+
+  const body = await request.json();
+
+  const filename = body.filename;
+  const contentType = body.contentType;
+
+  if (!filename || !contentType) {
+    return jsonResponse(
+      request,
+      {
+        error: "Nedostaje naziv datoteke ili tip sadržaja.",
+      },
+      400,
+    );
+  }
+
+  if (!contentType.startsWith("image/")) {
+    return jsonResponse(request, { error: "Dozvoljene su samo slike." }, 400);
+  }
+
+  const extension = getExtension(filename);
+
+  const key = `events/${event.id}/photos/${crypto.randomUUID()}${extension}`;
+
+  const endpoint = `https://${env.ACCOUNT_ID}.r2.cloudflarestorage.com`;
+
+  const client = new AwsClient({
+    accessKeyId: env.R2_ACCESS_KEY_ID,
+    secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+    service: "s3",
+    region: "auto",
+  });
+
+  const objectUrl = `${endpoint}/${BUCKET_NAME}/${key}`;
+
+  const signedRequest = await client.sign(objectUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": contentType,
+    },
+    aws: {
+      signQuery: true,
+    },
+  });
+
+  return jsonResponse(request, {
+    uploadUrl: signedRequest.url,
+    key,
+  });
+}
+
+async function getEventPhotos(request, env, slug) {
+  const event = await env.online_uspomene_db
+    .prepare(
+      `
+      SELECT id, is_active
+      FROM events
+      WHERE slug = ?
+      LIMIT 1
+    `,
+    )
+    .bind(slug)
+    .first();
+
+  if (!event) {
+    return jsonResponse(request, { error: "Događaj nije pronađen." }, 404);
+  }
+
+  const result = await env.online_uspomene_db
+    .prepare(
+      `
+      SELECT
+        id,
+        r2_key,
+        original_name,
+        content_type,
+        file_size,
+        guest_name,
+        message,
+        status,
+        created_at
+      FROM photos
+      WHERE event_id = ?
+      ORDER BY created_at DESC
+    `,
+    )
+    .bind(event.id)
+    .all();
+
+  const photos = result.results.map((photo) => ({
+    id: photo.id,
+    key: photo.r2_key,
+    url: `${env.BUCKET_PUBLIC_URL}/${photo.r2_key}`,
+    originalName: photo.original_name,
+    contentType: photo.content_type,
+    fileSize: photo.file_size,
+    guestName: photo.guest_name,
+    message: photo.message,
+    status: photo.status,
+    uploaded: photo.created_at,
+  }));
+
+  return jsonResponse(request, photos);
+}
+
+async function createPhoto(request, env, slug) {
+  const event = await env.online_uspomene_db
+    .prepare(
+      `
+      SELECT id, is_active
+      FROM events
+      WHERE slug = ?
+      LIMIT 1
+    `,
+    )
+    .bind(slug)
+    .first();
+
+  if (!event) {
+    return jsonResponse(request, { error: "Događaj nije pronađen." }, 404);
+  }
+
+  if (event.is_active !== 1) {
+    return jsonResponse(
+      request,
+      { error: "Događaj trenutno nije aktivan." },
+      403,
+    );
+  }
+
+  const body = await request.json();
+
+  const { key, originalName, contentType, fileSize, guestName, message } = body;
+
+  if (!key || !contentType) {
+    return jsonResponse(
+      request,
+      { error: "Nedostaju podaci o fotografiji." },
+      400,
+    );
+  }
+
+  const expectedPrefix = `events/${event.id}/photos/`;
+
+  if (!key.startsWith(expectedPrefix)) {
+    return jsonResponse(
+      request,
+      { error: "Neispravna putanja fotografije." },
+      400,
+    );
+  }
+
+  const result = await env.online_uspomene_db
+    .prepare(
+      `
+      INSERT INTO photos (
+        event_id,
+        r2_key,
+        original_name,
+        content_type,
+        file_size,
+        guest_name,
+        message
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `,
+    )
+    .bind(
+      event.id,
+      key,
+      originalName ?? null,
+      contentType,
+      fileSize ?? null,
+      guestName ?? null,
+      message ?? null,
+    )
+    .run();
+
+  return jsonResponse(
+    request,
+    {
+      id: result.meta.last_row_id,
+      key,
+      status: "pending",
+    },
+    201,
+  );
+}
+
+async function getEvent(request, env, slug) {
+  if (!slug) {
+    return jsonResponse(request, { error: "Nedostaje oznaka događaja." }, 400);
+  }
+
+  const event = await env.online_uspomene_db
+    .prepare(
+      `
+      SELECT
+        id,
+        slug,
+        name,
+        event_date,
+        is_active
+      FROM events
+      WHERE slug = ?
+      LIMIT 1
+    `,
+    )
+    .bind(slug)
+    .first();
+
+  if (!event) {
+    return jsonResponse(request, { error: "Događaj nije pronađen." }, 404);
+  }
+
+  return jsonResponse(request, {
+    id: event.id,
+    slug: event.slug,
+    name: event.name,
+    eventDate: event.event_date,
+    active: event.is_active === 1,
+  });
+}
 
 async function presignUpload(request, env) {
   const body = await request.json();
@@ -66,7 +340,7 @@ async function presignUpload(request, env) {
       {
         error: "Nedostaje naziv datoteke ili tip sadržaja.",
       },
-      400
+      400,
     );
   }
 
@@ -76,7 +350,7 @@ async function presignUpload(request, env) {
       {
         error: "Dozvoljene su samo slike.",
       },
-      400
+      400,
     );
   }
 
@@ -84,8 +358,7 @@ async function presignUpload(request, env) {
 
   const key = `photos/${crypto.randomUUID()}${extension}`;
 
-  const endpoint =
-    `https://${env.ACCOUNT_ID}.r2.cloudflarestorage.com`;
+  const endpoint = `https://${env.ACCOUNT_ID}.r2.cloudflarestorage.com`;
 
   const client = new AwsClient({
     accessKeyId: env.R2_ACCESS_KEY_ID,
@@ -94,8 +367,7 @@ async function presignUpload(request, env) {
     region: "auto",
   });
 
-  const objectUrl =
-    `${endpoint}/${BUCKET_NAME}/${key}`;
+  const objectUrl = `${endpoint}/${BUCKET_NAME}/${key}`;
 
   const signedRequest = await client.sign(objectUrl, {
     method: "PUT",
@@ -114,8 +386,7 @@ async function presignUpload(request, env) {
 }
 
 async function getPhotos(request, env) {
-  const endpoint =
-    `https://${env.ACCOUNT_ID}.r2.cloudflarestorage.com`;
+  const endpoint = `https://${env.ACCOUNT_ID}.r2.cloudflarestorage.com`;
 
   const client = new AwsClient({
     accessKeyId: env.R2_ACCESS_KEY_ID,
@@ -124,15 +395,12 @@ async function getPhotos(request, env) {
     region: "auto",
   });
 
-  const listUrl =
-    `${endpoint}/${BUCKET_NAME}?list-type=2&prefix=photos/`;
+  const listUrl = `${endpoint}/${BUCKET_NAME}?list-type=2&prefix=photos/`;
 
   const response = await client.fetch(listUrl);
 
   if (!response.ok) {
-    throw new Error(
-      `R2 list error: ${response.status}`
-    );
+    throw new Error(`R2 list error: ${response.status}`);
   }
 
   const xml = await response.text();
@@ -145,11 +413,7 @@ async function getPhotos(request, env) {
     uploaded: object.uploaded,
   }));
 
-  photos.sort(
-    (a, b) =>
-      new Date(b.uploaded) -
-      new Date(a.uploaded)
-  );
+  photos.sort((a, b) => new Date(b.uploaded) - new Date(a.uploaded));
 
   return jsonResponse(request, photos);
 }
@@ -157,8 +421,7 @@ async function getPhotos(request, env) {
 function parseObjects(xml) {
   const objects = [];
 
-  const contentRegex =
-    /<Contents>([\s\S]*?)<\/Contents>/g;
+  const contentRegex = /<Contents>([\s\S]*?)<\/Contents>/g;
 
   let match;
 
@@ -166,8 +429,7 @@ function parseObjects(xml) {
     const block = match[1];
 
     const key = getXmlValue(block, "Key");
-    const uploaded =
-      getXmlValue(block, "LastModified");
+    const uploaded = getXmlValue(block, "LastModified");
 
     if (key) {
       objects.push({
@@ -181,9 +443,7 @@ function parseObjects(xml) {
 }
 
 function getXmlValue(xml, tag) {
-  const regex = new RegExp(
-    `<${tag}>([\\s\\S]*?)<\\/${tag}>`
-  );
+  const regex = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`);
 
   const match = xml.match(regex);
 
@@ -206,36 +466,30 @@ function getExtension(filename) {
     return "";
   }
 
-  return filename
-    .slice(index)
-    .toLowerCase();
+  return filename.slice(index).toLowerCase();
 }
 
 function getCorsHeaders(request) {
   const origin = request.headers.get("Origin");
 
-  const allowedOrigin =
-    ALLOWED_ORIGINS.includes(origin)
-      ? origin
-      : ALLOWED_ORIGINS[0];
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin)
+    ? origin
+    : ALLOWED_ORIGINS[0];
 
   return {
     "Access-Control-Allow-Origin": allowedOrigin,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
-    "Vary": "Origin",
+    Vary: "Origin",
   };
 }
 
 function jsonResponse(request, data, status = 200) {
-  return new Response(
-    JSON.stringify(data),
-    {
-      status,
-      headers: {
-        "Content-Type": "application/json",
-        ...getCorsHeaders(request),
-      },
-    }
-  );
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      "Content-Type": "application/json",
+      ...getCorsHeaders(request),
+    },
+  });
 }

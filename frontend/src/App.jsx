@@ -40,7 +40,8 @@ function Home() {
             </h1>
 
             <p className="hero-description">
-              Kreiramo moderne, pozivnice i digitalne uspomene koje ostavljaju dojam i traju zauvijek.
+              Kreiramo moderne, pozivnice i digitalne uspomene koje ostavljaju dojam i traju
+              zauvijek.
             </p>
 
             <div className="hero-buttons">
@@ -58,10 +59,7 @@ function Home() {
           <div className="hero-visual">
             <div className="visual-card card-main">
               <div className="visual-text">
-                <img
-                  src="/home2.jpg"
-                  alt="Primjer digitalne pozivnice"
-                />
+                <img src="/home2.jpg" alt="Primjer digitalne pozivnice" />
               </div>
             </div>
 
@@ -107,10 +105,7 @@ function Home() {
           <div className="invitation-grid">
             <article className="invitation-card">
               <div className="invitation-preview">
-                <img
-                  src="/invitation.png"
-                  alt="Primjer digitalne pozivnice"
-                />
+                <img src="/invitation.png" alt="Primjer digitalne pozivnice" />
               </div>
 
               <div className="invitation-info">
@@ -125,10 +120,7 @@ function Home() {
 
             <article className="invitation-card">
               <div className="invitation-preview">
-                <img
-                  src="/invitation.png"
-                  alt="Primjer digitalne pozivnice"
-                />
+                <img src="/invitation.png" alt="Primjer digitalne pozivnice" />
               </div>
 
               <div className="invitation-info">
@@ -143,10 +135,7 @@ function Home() {
 
             <article className="invitation-card">
               <div className="invitation-preview">
-                <img
-                  src="/invitation.png"
-                  alt="Primjer digitalne pozivnice"
-                />
+                <img src="/invitation.png" alt="Primjer digitalne pozivnice" />
               </div>
 
               <div className="invitation-info">
@@ -170,35 +159,55 @@ function Home() {
               <br />
               <em>jedna uspomena.</em>
             </h2>
-<div className="section-intro">
-            <p className="section-intro-text">
-              Postavi QR kod na stolove i dopusti svojim gostima da
-              jednostavno podijele trenutke koje su zabilježili.
-              Bez aplikacije. Bez kompliciranja.
-            </p>
+            <div className="section-intro">
+              <p className="section-intro-text">
+                Postavi QR kod na stolove i dopusti svojim gostima da jednostavno podijele trenutke
+                koje su zabilježili. Bez aplikacije. Bez kompliciranja.
+              </p>
             </div>
           </div>
 
           <div className="process-grid">
-
             {/* 01 */}
             <article className="process-card">
               <div className="process-number">01</div>
 
               <div className="process-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-qr-code-icon lucide-qr-code"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-qr-code-icon lucide-qr-code"
+                >
+                  <rect width="5" height="5" x="3" y="3" rx="1" />
+                  <rect width="5" height="5" x="16" y="3" rx="1" />
+                  <rect width="5" height="5" x="3" y="16" rx="1" />
+                  <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
+                  <path d="M21 21v.01" />
+                  <path d="M12 7v3a2 2 0 0 1-2 2H7" />
+                  <path d="M3 12h.01" />
+                  <path d="M12 3h.01" />
+                  <path d="M12 16v.01" />
+                  <path d="M16 12h1" />
+                  <path d="M21 12v.01" />
+                  <path d="M12 21v-1" />
+                </svg>
               </div>
 
               <h3>Skeniraj</h3>
 
               <p>
-                Gost jednostavno skenira QR kod svojim mobitelom
-                i odmah pristupa mjestu gdje dijeli uspomene.
+                Gost jednostavno skenira QR kod svojim mobitelom i odmah pristupa mjestu gdje dijeli
+                uspomene.
               </p>
 
-              <div className="process-tag">
-                Bez aplikacije
-              </div>
+              <div className="process-tag">Bez aplikacije</div>
             </article>
 
             {/* 02 */}
@@ -206,19 +215,34 @@ function Home() {
               <div className="process-number">02</div>
 
               <div className="process-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2-icon lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-share2-icon lucide-share-2"
+                >
+                  <circle cx="18" cy="5" r="3" />
+                  <circle cx="6" cy="12" r="3" />
+                  <circle cx="18" cy="19" r="3" />
+                  <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
+                  <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
+                </svg>
               </div>
 
               <h3>Podijeli</h3>
 
               <p>
-                Fotografije i videozapise koje su gosti snimili
-                mogu prenijeti direktno sa svog mobitela.
+                Fotografije i videozapise koje su gosti snimili mogu prenijeti direktno sa svog
+                mobitela.
               </p>
 
-              <div className="process-tag">
-                Jednostavno učitavanje
-              </div>
+              <div className="process-tag">Jednostavno učitavanje</div>
             </article>
 
             {/* 03 */}
@@ -226,28 +250,36 @@ function Home() {
               <div className="process-number">03</div>
 
               <div className="process-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-heart-icon lucide-heart"
+                >
+                  <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                </svg>
               </div>
 
               <h3>Sačuvaj</h3>
 
               <p>
-                Sve uspomene ostaju na jednom mjestu, u punoj kvaliteti,
-                spremne za pregledavanje i preuzimanje.
+                Sve uspomene ostaju na jednom mjestu, u punoj kvaliteti, spremne za pregledavanje i
+                preuzimanje.
               </p>
 
-              <div className="process-tag">
-                Puna kvaliteta
-              </div>
+              <div className="process-tag">Puna kvaliteta</div>
             </article>
-
           </div>
 
           <div className="memory-banner">
             <div className="memory-banner-content">
-              <span className="memory-label">
-                SVE USPOMENE NA JEDNOM MJESTU
-              </span>
+              <span className="memory-label">SVE USPOMENE NA JEDNOM MJESTU</span>
 
               <h3>
                 Tvoj događaj iz
@@ -385,9 +417,7 @@ function Home() {
               <div className="contact-details">
                 <div className="contact-detail">
                   <span>Email</span>
-                  <a href="mailto:hello@designly.com">
-                    hello@designly.com
-                  </a>
+                  <a href="mailto:hello@designly.com">hello@designly.com</a>
                 </div>
 
                 <div className="contact-detail">
@@ -401,20 +431,12 @@ function Home() {
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="name">Ime i prezime</label>
-                  <input
-                    id="name"
-                    type="text"
-                    placeholder="Ivan Horvat"
-                  />
+                  <input id="name" type="text" placeholder="Ivan Horvat" />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="ivan@email.com"
-                  />
+                  <input id="email" type="email" placeholder="ivan@email.com" />
                 </div>
               </div>
 
@@ -435,11 +457,7 @@ function Home() {
               <div className="form-group">
                 <label htmlFor="message">Poruka</label>
 
-                <textarea
-                  id="message"
-                  rows="5"
-                  placeholder="Reci nam nešto više..."
-                />
+                <textarea id="message" rows="5" placeholder="Reci nam nešto više..." />
               </div>
 
               <button type="submit" className="contact-submit">
@@ -460,8 +478,8 @@ function Home() {
             </h2>
 
             <p>
-              Pogledaj kako ReMoment pretvara svaki događaj u zajedničku
-              kolekciju uspomena koje ostaju zauvijek.
+              Pogledaj kako ReMoment pretvara svaki događaj u zajedničku kolekciju uspomena koje
+              ostaju zauvijek.
             </p>
 
             <a href="/demo" className="demo-button">
@@ -481,7 +499,7 @@ function Home() {
       </footer>
     </div>
   );
-};
+}
 function App() {
   return (
     <Routes>
