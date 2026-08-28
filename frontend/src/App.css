@@ -1132,7 +1132,7 @@ a {
   transform: translateY(0);
 
   transition:
-    transform 5s cubic-bezier(0.25, 0.8, 0.25, 0.50);
+    transform 4s cubic-bezier(0.75, 0.75, 0.75, 0.75);
 
   will-change: transform;
 }
@@ -1407,7 +1407,175 @@ a {
 
   font-weight: 700;
 }
+/* =========================
+   PRICE FEATURES
+========================= */
 
+.price-features {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-top: 25px;
+
+  gap: 10px;
+}
+
+.price-features p {
+  position: relative;
+
+  margin: 0;
+  padding-left: 16px;
+
+  color: var(--text-soft);
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  text-align: left;
+}
+
+.price-features p::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 8px;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+}
+
+
+/* =========================
+   PREVIOUS PACKAGE
+========================= */
+
+.previous-package {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 8px;
+
+  margin-top: 22px;
+
+  padding: 9px 12px;
+
+  border: 1px solid rgba(200, 120, 85, 0.15);
+
+  border-radius: 9px;
+
+  background: rgba(200, 120, 85, 0.06);
+
+  color: var(--accent-dark);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  text-align: left;
+}
+
+
+/* =========================
+   PRICE CARD
+========================= */
+
+.price-card {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 400px;
+
+  padding: 35px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 20px;
+
+  background: rgba(255, 250, 242, 0.7);
+
+  box-shadow:
+    0 15px 40px rgba(94, 67, 46, 0.04);
+}
+
+.price-card h3 {
+  margin-top: 25px;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  color: var(--text);
+
+  font-size: 48px;
+
+  letter-spacing: -2px;
+}
+
+.price-card > span {
+  color: var(--accent-dark);
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  font-weight: 600;
+}
+
+
+/* Gumb uvijek na dnu */
+
+.price-card > a {
+  margin-top: auto;
+
+  padding-top: 30px;
+
+  color: var(--accent-dark);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  text-align: right;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.price-card > a:hover {
+  color: var(--accent);
+
+  transform: translateX(4px);
+}
+
+
+/* =========================
+   POPULAR
+========================= */
+
+.price-card.popular {
+  border-color: rgba(200, 120, 85, 0.3);
+
+  background:
+    linear-gradient(
+      145deg,
+      #f0dfce,
+      #fff9f0
+    );
+
+  box-shadow:
+    0 20px 50px rgba(200, 120, 85, 0.1);
+}
 /* =========================
    CONTACT
 ========================= */

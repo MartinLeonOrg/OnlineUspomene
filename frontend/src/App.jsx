@@ -1,6 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Demo from "./pages/Demo.jsx";
+import Admin from "./pages/Admin.jsx";
 
 function Home() {
   return (
@@ -255,7 +256,7 @@ function Home() {
               </h3>
 
               <p>
-                Gosti vide događaj svojim očima. Cherish ti omogućuje
+                Gosti vide događaj svojim očima. ReMoment ti omogućuje
                 da vidiš sve te trenutke na jednom mjestu.
               </p>
             </div>
@@ -289,28 +290,80 @@ function Home() {
           </div>
 
           <div className="pricing-grid">
-            <div className="price-card">
-              <span>STARTER</span>
-              <h3>€499</h3>
-              <p>Za jednostavne projekte i landing stranice.</p>
-              <a href="#kontakt">Odaberi paket →</a>
-            </div>
 
-            <div className="price-card popular">
-              <div className="popular-label">NAJPOPULARNIJE</div>
-              <span>BUSINESS</span>
-              <h3>€999</h3>
-              <p>Kompletno rješenje za ozbiljan digitalni nastup.</p>
-              <a href="#kontakt">Odaberi paket →</a>
-            </div>
+  {/* OSNOVNI */}
+  <div className="price-card">
+    <span>OSNOVNI PAKET</span>
 
-            <div className="price-card">
-              <span>PREMIUM</span>
-              <h3>€1.999+</h3>
-              <p>Potpuno custom rješenje prema vašim potrebama.</p>
-              <a href="#kontakt">Kontaktiraj nas →</a>
-            </div>
-          </div>
+    <h3>9.99 €</h3>
+
+    <div className="price-features">
+      <p>Jedan od gotovih dizajna pozivnica.</p>
+      <p>Jedinstveni QR kod za događaj.</p>
+      <p>Gosti mogu učitati fotografije.</p>
+      <p>Fotografije u punoj kvaliteti.</p>
+      <p>Preuzimanje fotografija.</p>
+      <p>Galerija dostupna 30 dana.</p>
+    </div>
+
+    <a href="#kontakt">
+      Odaberi paket →
+    </a>
+  </div>
+
+
+  {/* STANDARD */}
+  <div className="price-card popular">
+
+    <div className="popular-label">
+      NAJPOPULARNIJE
+    </div>
+
+    <span>STANDARD PAKET</span>
+
+    <h3>13.99 €</h3>
+
+    <div className="previous-package">
+      <span>✓</span>
+      Sve iz Osnovnog paketa
+    </div>
+
+    <div className="price-features">
+      <p>Prilagodba osnovnog dizajna pozivnice.</p>
+      <p>Poruke gostiju uz fotografije.</p>
+      <p>Galerija dostupna 90 dana.</p>
+    </div>
+
+    <a href="#kontakt">
+      Odaberi paket →
+    </a>
+  </div>
+
+
+  {/* PREMIUM */}
+  <div className="price-card">
+
+    <span>PREMIUM PAKET</span>
+
+    <h3>€17.99 €</h3>
+
+    <div className="previous-package">
+      <span>✓</span>
+      Sve iz Standard paketa
+    </div>
+
+    <div className="price-features">
+      <p>Potpuno custom rješenje prema vašim potrebama.</p>
+      <p>Napredna personalizacija.</p>
+    </div>
+
+    <a href="#kontakt">
+      Kontaktiraj nas →
+    </a>
+  </div>
+
+</div>
+            
         </section>
 
         <section className="contact-section" id="kontakt">
@@ -434,6 +487,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/demo" element={<Demo />} />
+      <Route path="/admin" element={<Admin />} />
     </Routes>
   );
 }
