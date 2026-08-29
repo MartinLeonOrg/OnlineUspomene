@@ -17,7 +17,7 @@ body {
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
+    'Segoe UI',
     sans-serif;
 
   background: #f7f7f5;
@@ -375,7 +375,7 @@ button {
 }
 
 .notification::after {
-  content: "";
+  content: '';
 
   width: 6px;
   height: 6px;
@@ -535,6 +535,8 @@ button {
 
   font-size: 16px;
 
+  color: #050505;
+
   letter-spacing: -0.3px;
 }
 
@@ -600,10 +602,7 @@ button {
 
   color: white;
 
-  background: linear-gradient(
-    transparent,
-    rgba(0, 0, 0, 0.7)
-  );
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
 }
 
 .photo-overlay strong {
@@ -1036,10 +1035,7 @@ tbody tr:hover {
 
   padding: 45px 14px 13px;
 
-  background: linear-gradient(
-    transparent,
-    rgba(0, 0, 0, 0.72)
-  );
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
 
   color: white;
 }
@@ -1274,8 +1270,7 @@ tbody tr:hover {
 
   position: relative;
 
-  box-shadow:
-    0 25px 80px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
 }
 
 .modal-close {
@@ -1315,6 +1310,7 @@ tbody tr:hover {
 .modal-heading h2 {
   font-size: 21px;
 
+  color: #050505;
   margin: 7px 0 3px;
 }
 
@@ -1612,4 +1608,278 @@ tbody tr:hover {
   .stats-grid {
     gap: 12px;
   }
+}
+
+.event-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.more-button.edit {
+  color: #8c754d;
+}
+
+.more-button.edit:hover {
+  color: #5f4d31;
+}
+
+.more-button.danger {
+  color: #a36e65;
+}
+
+.more-button.danger:hover {
+  color: #7f453d;
+}
+
+.edit-event-info {
+  background: #f7f7f4;
+  border: 1px solid #ecebe5;
+  border-radius: 9px;
+  padding: 12px 14px;
+}
+
+.edit-event-info span {
+  display: block;
+  margin-bottom: 6px;
+  color: #999791;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.edit-event-info code {
+  color: #66655f;
+  font-size: 12px;
+}
+
+/* =========================================================
+   EVENT FORM
+========================================================= */
+
+.new-event-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  margin-top: 26px;
+}
+
+.new-event-form label {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+
+  color: #5f5e58;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.new-event-form input {
+  width: 100%;
+  height: 44px;
+
+  padding: 0 13px;
+
+  border: 1px solid #e4e2dc;
+  border-radius: 9px;
+
+  background: #fafaf8;
+  color: #252522;
+
+  font-size: 12px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.new-event-form input::placeholder {
+  color: #aaa9a3;
+}
+
+.new-event-form input:hover {
+  border-color: #d4d1c8;
+}
+
+.new-event-form input:focus {
+  background: #fff;
+
+  border-color: #c5a66d;
+
+  box-shadow: 0 0 0 3px rgba(216, 183, 122, 0.14);
+}
+
+.new-event-form input[type='date'] {
+  color-scheme: light;
+}
+
+/* Submit */
+.new-event-form .primary {
+  width: 100%;
+  height: 44px;
+
+  margin-top: 5px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: #25251f;
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.new-event-form .primary:hover {
+  background: #34342d;
+}
+
+.new-event-form .primary:active {
+  transform: translateY(1px);
+}
+
+.new-event-form small {
+  margin-top: -2px;
+  color: #aaa9a3;
+  font-size: 9px;
+  font-weight: 400;
+}
+
+/* =========================================================
+   EDIT EVENT MODAL
+========================================================= */
+
+.edit-event-modal {
+  width: min(480px, 100%);
+}
+
+.edit-event-form {
+  margin-top: 26px;
+}
+
+/* Link preview */
+.edit-event-link {
+  padding: 14px 15px;
+
+  background: #f7f7f4;
+  border: 1px solid #ebe9e2;
+  border-radius: 10px;
+}
+
+.edit-event-link-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 9px;
+}
+
+.edit-event-link-header span {
+  color: #5f5e58;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.edit-event-link-header small {
+  color: #aaa9a3;
+
+  font-size: 9px;
+}
+
+.edit-event-link code {
+  display: block;
+  width: 100%;
+
+  padding: 10px 12px;
+
+  background: #fff;
+  border: 1px solid #e4e2dc;
+  border-radius: 7px;
+
+  color: #66655f;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  font-size: 11px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Footer buttons */
+.edit-event-actions {
+  display: grid;
+
+  grid-template-columns: 1fr 1.4fr;
+
+  gap: 10px;
+
+  margin-top: 4px;
+}
+
+.edit-event-actions button {
+  height: 44px;
+
+  border-radius: 9px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.edit-cancel-button {
+  border: 1px solid #e4e2dc;
+
+  background: #fff;
+  color: #66655f;
+}
+
+.edit-cancel-button:hover:not(:disabled) {
+  background: #f7f7f4;
+  border-color: #d5d2ca;
+}
+
+.edit-save-button {
+  border: 0;
+
+  background: #25251f;
+  color: #fff;
+}
+
+.edit-save-button:hover:not(:disabled) {
+  background: #34342d;
+}
+
+.edit-event-actions button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.edit-event-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

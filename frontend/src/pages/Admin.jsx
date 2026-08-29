@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import QRCode from 'qrcode';
 import './Admin.css';
 
-const API_URL = import.meta.env.VITE_WORKER_URL || 'https://online-uspomene-api.mciko-wedding.workers.dev';
+const API_URL =
+  import.meta.env.VITE_WORKER_URL || 'https://online-uspomene-api.mciko-wedding.workers.dev';
 const ADMIN_KEY = import.meta.env.VITE_ADMIN_API_KEY || '';
 
 // ---------------------------------------------------------------------------
@@ -91,6 +92,7 @@ function Admin() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showQR, setShowQR] = useState(false);
   const [showNewEvent, setShowNewEvent] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [guestEventId, setGuestEventId] = useState('');
@@ -172,6 +174,22 @@ function Admin() {
     try {
       await api('/admin/events', { method: 'POST', body: JSON.stringify(payload) });
       setShowNewEvent(false);
+      await loadDashboard();
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  }
+
+  async function handleUpdateEvent(eventId, payload) {
+    try {
+      await api(`/admin/events/${eventId}`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+
+      setEditingEvent(null);
+
       await loadDashboard();
     } catch (err) {
       console.error(err);
@@ -445,6 +463,7 @@ function Admin() {
                       setShowQR(true);
                     }}
                     onToggleActive={handleToggleActive}
+                    onEdit={(event) => setEditingEvent(event)}
                     onDelete={handleDeleteEvent}
                   />
                 </section>
@@ -488,6 +507,7 @@ function Admin() {
                       setShowQR(true);
                     }}
                     onToggleActive={handleToggleActive}
+                    onEdit={(event) => setEditingEvent(event)}
                     onDelete={handleDeleteEvent}
                   />
                 </section>
@@ -605,6 +625,14 @@ function Admin() {
       {showNewEvent && (
         <NewEventModal onClose={() => setShowNewEvent(false)} onCreate={handleCreateEvent} />
       )}
+
+      {editingEvent && (
+        <EditEventModal
+          event={editingEvent}
+          onClose={() => setEditingEvent(null)}
+          onSave={handleUpdateEvent}
+        />
+      )}
     </div>
   );
 }
@@ -626,7 +654,7 @@ function StatCard({ title, value, description, icon }) {
   );
 }
 
-function EventsTable({ events, onQR, onToggleActive, onDelete }) {
+function EventsTable({ events, onQR, onToggleActive, onEdit, onDelete }) {
   return (
     <div className="table-wrapper">
       <table>
@@ -681,9 +709,15 @@ function EventsTable({ events, onQR, onToggleActive, onDelete }) {
               </td>
 
               <td>
-                <button className="more-button danger" onClick={() => onDelete(event)}>
-                  Obriši
-                </button>
+                <div className="event-actions">
+                  <button className="more-button edit" onClick={() => onEdit(event)}>
+                    Uredi
+                  </button>
+
+                  <button className="more-button danger" onClick={() => onDelete(event)}>
+                    Obriši
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
@@ -813,7 +847,86 @@ function NewEventModal({ onClose, onCreate }) {
     </div>
   );
 }
+function EditEventModal({ event, onClose, onSave }) {
+  const [name, setName] = useState(event.name || '');
+  const [eventDate, setEventDate] = useState(event.eventDate || '');
+  const [saving, setSaving] = useState(false);
 
+  const submit = async (e) => {
+    e.preventDefault();
+
+    if (!name.trim() || saving) return;
+
+    try {
+      setSaving(true);
+
+      await onSave(event.id, {
+        name: name.trim(),
+        eventDate: eventDate || null,
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="qr-modal edit-event-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" type="button" onClick={onClose}>
+          ×
+        </button>
+
+        <div className="modal-heading">
+          <span>UREDI DOGAĐAJ</span>
+          <h2>Postavke događaja</h2>
+          <p>Promijenite naziv ili datum događaja.</p>
+        </div>
+
+        <form className="new-event-form edit-event-form" onSubmit={submit}>
+          <label>
+            Naziv događaja
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Ana & Marko"
+              required
+            />
+          </label>
+
+          <label>
+            Datum
+            <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
+          </label>
+
+          <div className="edit-event-link">
+            <div className="edit-event-link-header">
+              <span>Link događaja</span>
+              <small>QR kod koristi ovaj link</small>
+            </div>
+
+            <code>/e/{event.slug}</code>
+          </div>
+
+          <div className="edit-event-actions">
+            <button
+              className="edit-cancel-button"
+              type="button"
+              onClick={onClose}
+              disabled={saving}
+            >
+              Odustani
+            </button>
+
+            <button className="edit-save-button" type="submit" disabled={!name.trim() || saving}>
+              {saving ? 'Spremanje...' : 'Spremi promjene'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
 function QRCard({ event, onOpen }) {
   const [qrDataUrl, setQrDataUrl] = useState('');
   const link = `https://onlineuspomene.netlify.app/e/${event.slug}`;

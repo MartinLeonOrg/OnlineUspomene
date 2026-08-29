@@ -221,12 +221,14 @@ export default function WeddingApp() {
   return (
     <div
       style={{
-        minHeight: '100vh',
+        minHeight: '100dvh',
         background: PALETTE.pearl,
         fontFamily: "'Cormorant Garamond', 'Georgia', serif",
         color: PALETTE.green,
         position: 'relative',
-        overflow: 'hidden',
+
+        overflowX: 'hidden',
+        overflowY: 'visible',
       }}
     >
       {showGuestModal && (
@@ -383,7 +385,7 @@ export default function WeddingApp() {
           zIndex: 2,
           maxWidth: 520,
           margin: '0 auto',
-          padding: '0 20px 40px',
+          padding: '0 20px calc(80px + env(safe-area-inset-bottom))',
         }}
       >
         {/* ── HOME ── */}
