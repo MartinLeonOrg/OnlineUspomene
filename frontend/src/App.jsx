@@ -28,11 +28,6 @@ function Home() {
           <div className="hero-glow glow-two"></div>
 
           <div className="hero-content">
-            <div className="hero-badge">
-              <span className="badge-dot"></span>
-              Uspomene koje traju
-            </div>
-
             <h1>
               Uspomena koja
               <br />
