@@ -6,6 +6,14 @@ const API_URL =
   import.meta.env.VITE_WORKER_URL || 'https://online-uspomene-api.mciko-wedding.workers.dev';
 const ADMIN_KEY = import.meta.env.VITE_ADMIN_API_KEY || '';
 
+// Guest-facing site domain + route pattern for an event's upload page.
+// Single source of truth — if the real route isn't "/e/:slug", change it
+// only here and every link in the app (QR modal, QR cards, dashboard) updates.
+const GUEST_SITE_URL = 'https://onlineuspomene.netlify.app';
+function guestEventUrl(slug) {
+  return `${GUEST_SITE_URL}/e/${slug}`;
+}
+
 // ---------------------------------------------------------------------------
 // API HELPER
 // ---------------------------------------------------------------------------
@@ -167,7 +175,7 @@ function Admin() {
     return matchesSearch && matchesStatus;
   });
 
-  const guestLink = selectedEvent ? `https://tvoja-domena.com/e/${selectedEvent.slug}` : '';
+  const guestLink = selectedEvent ? guestEventUrl(selectedEvent.slug) : '';
 
   // --- actions -------------------------------------------------------------
   async function handleCreateEvent(payload) {
@@ -520,8 +528,8 @@ function Admin() {
                   <div>
                     <h2>Sve fotografije</h2>
                     <p>
-                      Fotke su gostima vidljive odmah nakon uploada. Ovdje ih možeš pregledati i
-                      ukloniti neprikladne.
+                      Fotke su gostima vidljive odmah nakon uploada. Grupirano po događajima —
+                      otvori folder za pregled.
                     </p>
                   </div>
                 </div>
@@ -529,26 +537,7 @@ function Admin() {
                 {allPhotos.length === 0 ? (
                   <p className="empty-state">Još nema uploadanih fotografija.</p>
                 ) : (
-                  <div className="gallery-page-grid">
-                    {allPhotos.map((photo) => (
-                      <div className="gallery-large-card" key={photo.id}>
-                        <img src={photo.url} alt="" />
-                        <div>
-                          <strong>{photo.guestName || 'Gost'}</strong>
-                          <span>{photo.eventName}</span>
-                          {photo.message && <p className="photo-message">"{photo.message}"</p>}
-                          <div className="qr-actions">
-                            <button
-                              className="secondary danger"
-                              onClick={() => handleDeletePhoto(photo.id)}
-                            >
-                              🗑 Ukloni
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <PhotoFolders photos={allPhotos} onDelete={handleDeletePhoto} />
                 )}
               </section>
             )}
@@ -798,6 +787,72 @@ function GuestsPanel({ guests, onAdd, onDelete }) {
   );
 }
 
+function PhotoFolders({ photos, onDelete }) {
+  const [expanded, setExpanded] = useState(() => new Set());
+
+  const folders = React.useMemo(() => {
+    const map = new Map();
+    for (const photo of photos) {
+      const key = photo.eventId ?? 'bez-dogadaja';
+      if (!map.has(key)) {
+        map.set(key, {
+          eventId: key,
+          eventName: photo.eventName || 'Bez događaja',
+          photos: [],
+        });
+      }
+      map.get(key).photos.push(photo);
+    }
+    return Array.from(map.values()).sort((a, b) => b.photos.length - a.photos.length);
+  }, [photos]);
+
+  const toggle = (eventId) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(eventId)) next.delete(eventId);
+      else next.add(eventId);
+      return next;
+    });
+  };
+
+  return (
+    <div>
+      {folders.map((folder) => {
+        const isOpen = expanded.has(folder.eventId);
+        return (
+          <div className="photo-folder" key={folder.eventId}>
+            <button className="photo-folder-header" onClick={() => toggle(folder.eventId)}>
+              <strong>{folder.eventName}</strong>
+              <span className="folder-count">{folder.photos.length} fotografija</span>
+              <span className="folder-chevron">{isOpen ? '▾' : '▸'}</span>
+            </button>
+
+            {isOpen && (
+              <div className="gallery-page-grid">
+                {folder.photos.map((photo) => (
+                  <div className="gallery-large-card" key={photo.id}>
+                    <img src={photo.url} alt="" />
+                    <div>
+                      <strong>{photo.guestName || 'Gost'}</strong>
+                      <span className={`status-tag ${photo.status}`}>{photo.status}</span>
+                      {photo.message && <p className="photo-message">"{photo.message}"</p>}
+                      <div className="qr-actions">
+                        <button className="danger" onClick={() => onDelete(photo.id)}>
+                          ✕ Ukloni
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function NewEventModal({ onClose, onCreate }) {
   const [name, setName] = useState('');
   const [eventDate, setEventDate] = useState('');
@@ -847,6 +902,7 @@ function NewEventModal({ onClose, onCreate }) {
     </div>
   );
 }
+
 function EditEventModal({ event, onClose, onSave }) {
   const [name, setName] = useState(event.name || '');
   const [eventDate, setEventDate] = useState(event.eventDate || '');
@@ -905,7 +961,7 @@ function EditEventModal({ event, onClose, onSave }) {
               <small>QR kod koristi ovaj link</small>
             </div>
 
-            <code>/e/{event.slug}</code>
+            <code>{guestEventUrl(event.slug)}</code>
           </div>
 
           <div className="edit-event-actions">
@@ -927,9 +983,10 @@ function EditEventModal({ event, onClose, onSave }) {
     </div>
   );
 }
+
 function QRCard({ event, onOpen }) {
   const [qrDataUrl, setQrDataUrl] = useState('');
-  const link = `https://onlineuspomene.netlify.app/e/${event.slug}`;
+  const link = guestEventUrl(event.slug);
 
   useEffect(() => {
     let cancelled = false;
