@@ -816,7 +816,7 @@ function NewEventModal({ onClose, onCreate }) {
 
 function QRCard({ event, onOpen }) {
   const [qrDataUrl, setQrDataUrl] = useState('');
-  const link = `https://tvoja-domena.com/e/${event.slug}`;
+  const link = `https://onlineuspomene.netlify.app/e/${event.slug}`;
 
   useEffect(() => {
     let cancelled = false;
