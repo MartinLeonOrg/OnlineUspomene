@@ -5,13 +5,19 @@
   "compatibility_date": "2026-08-25",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
   "d1_databases": [
     {
       "binding": "online_uspomene_db",
       "database_name": "online-uspomene-db",
       "database_id": "f7a9619c-a948-46b3-95b0-7255724bd1de",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PHOTOS",
+      "bucket_name": "wedding-photos",
     },
   ],
 }
