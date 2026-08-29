@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import QRCode from "qrcode";
-import "./admin.css";
+import React, { useState, useEffect } from 'react';
+import QRCode from 'qrcode';
+import './Admin.css';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8787";
-const ADMIN_KEY = import.meta.env.VITE_ADMIN_API_KEY || "";
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+const ADMIN_KEY = import.meta.env.VITE_ADMIN_API_KEY || '';
 
 // ---------------------------------------------------------------------------
 // API HELPER
@@ -12,11 +12,11 @@ async function api(path, options = {}) {
   const headers = { ...(options.headers || {}) };
 
   if (ADMIN_KEY) {
-    headers["X-Admin-Key"] = ADMIN_KEY;
+    headers['X-Admin-Key'] = ADMIN_KEY;
   }
 
   if (options.body && !(options.body instanceof FormData)) {
-    headers["Content-Type"] = "application/json";
+    headers['Content-Type'] = 'application/json';
   }
 
   const response = await fetch(`${API_URL}${path}`, {
@@ -84,25 +84,25 @@ function Admin() {
   const [allPhotos, setAllPhotos] = useState([]);
   const [guests, setGuests] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   // --- UI state ----------------------------------------------------------
-  const [activePage, setActivePage] = useState("dashboard");
+  const [activePage, setActivePage] = useState('dashboard');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showQR, setShowQR] = useState(false);
   const [showNewEvent, setShowNewEvent] = useState(false);
-  const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
-  const [guestEventId, setGuestEventId] = useState("");
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [guestEventId, setGuestEventId] = useState('');
 
   async function loadDashboard() {
     try {
       setLoading(true);
-      setError("");
+      setError('');
 
       const [dashboardData, eventsData] = await Promise.all([
-        api("/admin/dashboard"),
-        api("/admin/events"),
+        api('/admin/dashboard'),
+        api('/admin/events'),
       ]);
 
       setStats(dashboardData?.stats || FALLBACK_STATS);
@@ -121,7 +121,7 @@ function Admin() {
 
   async function loadAllPhotos() {
     try {
-      const data = await api("/admin/photos");
+      const data = await api('/admin/photos');
       setAllPhotos(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
@@ -148,8 +148,8 @@ function Admin() {
   }, []);
 
   useEffect(() => {
-    if (activePage === "photos") loadAllPhotos();
-    if (activePage === "guests" && guestEventId) loadGuests(guestEventId);
+    if (activePage === 'photos') loadAllPhotos();
+    if (activePage === 'guests' && guestEventId) loadGuests(guestEventId);
   }, [activePage, guestEventId]);
 
   const filteredEvents = events.filter((event) => {
@@ -158,21 +158,19 @@ function Admin() {
       event.slug?.toLowerCase().includes(search.toLowerCase());
 
     const matchesStatus =
-      statusFilter === "all" ||
-      (statusFilter === "active" && event.isActive) ||
-      (statusFilter === "inactive" && !event.isActive);
+      statusFilter === 'all' ||
+      (statusFilter === 'active' && event.isActive) ||
+      (statusFilter === 'inactive' && !event.isActive);
 
     return matchesSearch && matchesStatus;
   });
 
-  const guestLink = selectedEvent
-    ? `https://tvoja-domena.com/e/${selectedEvent.slug}`
-    : "";
+  const guestLink = selectedEvent ? `https://tvoja-domena.com/e/${selectedEvent.slug}` : '';
 
   // --- actions -------------------------------------------------------------
   async function handleCreateEvent(payload) {
     try {
-      await api("/admin/events", { method: "POST", body: JSON.stringify(payload) });
+      await api('/admin/events', { method: 'POST', body: JSON.stringify(payload) });
       setShowNewEvent(false);
       await loadDashboard();
     } catch (err) {
@@ -184,7 +182,7 @@ function Admin() {
   async function handleDeleteEvent(event) {
     if (!confirm(`Obrisati "${event.name}" i sve njegove fotografije?`)) return;
     try {
-      await api(`/admin/events/${event.id}`, { method: "DELETE" });
+      await api(`/admin/events/${event.id}`, { method: 'DELETE' });
       await loadDashboard();
     } catch (err) {
       console.error(err);
@@ -194,8 +192,8 @@ function Admin() {
 
   async function handleToggleActive(event) {
     try {
-      await api(`/admin/events/${event.id}/${event.isActive ? "deactivate" : "activate"}`, {
-        method: "POST",
+      await api(`/admin/events/${event.id}/${event.isActive ? 'deactivate' : 'activate'}`, {
+        method: 'POST',
       });
       await loadDashboard();
     } catch (err) {
@@ -207,7 +205,7 @@ function Admin() {
   async function handleRegenerateSlug(event) {
     try {
       const updated = await api(`/admin/events/${event.id}/regenerate-slug`, {
-        method: "POST",
+        method: 'POST',
       });
       setSelectedEvent((prev) =>
         prev && prev.id === event.id ? { ...prev, slug: updated.slug, isActive: true } : prev
@@ -220,9 +218,9 @@ function Admin() {
   }
 
   async function handleDeletePhoto(photoId) {
-    if (!confirm("Trajno obrisati fotografiju?")) return;
+    if (!confirm('Trajno obrisati fotografiju?')) return;
     try {
-      await api(`/admin/photos/${photoId}`, { method: "DELETE" });
+      await api(`/admin/photos/${photoId}`, { method: 'DELETE' });
       setAllPhotos((prev) => prev.filter((p) => p.id !== photoId));
       loadDashboard();
     } catch (err) {
@@ -234,7 +232,7 @@ function Admin() {
   async function handleAddGuest(payload) {
     try {
       await api(`/admin/events/${guestEventId}/guests`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(payload),
       });
       await loadGuests(guestEventId);
@@ -246,7 +244,7 @@ function Admin() {
 
   async function handleDeleteGuest(guestId) {
     try {
-      await api(`/admin/guests/${guestId}`, { method: "DELETE" });
+      await api(`/admin/guests/${guestId}`, { method: 'DELETE' });
       setGuests((prev) => prev.filter((g) => g.id !== guestId));
     } catch (err) {
       console.error(err);
@@ -269,40 +267,40 @@ function Admin() {
           <span className="sidebar-label">GLAVNO</span>
 
           <button
-            className={`sidebar-item ${activePage === "dashboard" ? "active" : ""}`}
-            onClick={() => setActivePage("dashboard")}
+            className={`sidebar-item ${activePage === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActivePage('dashboard')}
           >
             <span>⌂</span>
             Dashboard
           </button>
 
           <button
-            className={`sidebar-item ${activePage === "events" ? "active" : ""}`}
-            onClick={() => setActivePage("events")}
+            className={`sidebar-item ${activePage === 'events' ? 'active' : ''}`}
+            onClick={() => setActivePage('events')}
           >
             <span>◫</span>
             Događaji
           </button>
 
           <button
-            className={`sidebar-item ${activePage === "photos" ? "active" : ""}`}
-            onClick={() => setActivePage("photos")}
+            className={`sidebar-item ${activePage === 'photos' ? 'active' : ''}`}
+            onClick={() => setActivePage('photos')}
           >
             <span>▧</span>
             Fotografije
           </button>
 
           <button
-            className={`sidebar-item ${activePage === "guests" ? "active" : ""}`}
-            onClick={() => setActivePage("guests")}
+            className={`sidebar-item ${activePage === 'guests' ? 'active' : ''}`}
+            onClick={() => setActivePage('guests')}
           >
             <span>♙</span>
             Gosti
           </button>
 
           <button
-            className={`sidebar-item ${activePage === "qr" ? "active" : ""}`}
-            onClick={() => setActivePage("qr")}
+            className={`sidebar-item ${activePage === 'qr' ? 'active' : ''}`}
+            onClick={() => setActivePage('qr')}
           >
             <span>⌗</span>
             QR kodovi
@@ -321,17 +319,13 @@ function Admin() {
             <div className="storage-progress">
               <div
                 style={{
-                  width: `${Math.min(
-                    100,
-                    (stats.storage.usedGB / stats.storage.totalGB) * 100
-                  )}%`,
+                  width: `${Math.min(100, (stats.storage.usedGB / stats.storage.totalGB) * 100)}%`,
                 }}
               />
             </div>
 
             <small>
-              {((stats.storage.usedGB / stats.storage.totalGB) * 100).toFixed(1)}%
-              iskorišteno
+              {((stats.storage.usedGB / stats.storage.totalGB) * 100).toFixed(1)}% iskorišteno
             </small>
           </div>
 
@@ -351,36 +345,29 @@ function Admin() {
           <div>
             <span className="breadcrumb">Admin /</span>
             <h1>
-              {activePage === "dashboard" && "Dashboard"}
-              {activePage === "events" && "Događaji"}
-              {activePage === "photos" && "Fotografije"}
-              {activePage === "guests" && "Gosti"}
-              {activePage === "qr" && "QR kodovi"}
+              {activePage === 'dashboard' && 'Dashboard'}
+              {activePage === 'events' && 'Događaji'}
+              {activePage === 'photos' && 'Fotografije'}
+              {activePage === 'guests' && 'Gosti'}
+              {activePage === 'qr' && 'QR kodovi'}
             </h1>
           </div>
 
           <div className="topbar-actions">
-            <button
-              className="new-event-button"
-              onClick={() => setShowNewEvent(true)}
-            >
+            <button className="new-event-button" onClick={() => setShowNewEvent(true)}>
               <span>+</span>
               Novi događaj
             </button>
           </div>
         </header>
 
-        {error && (
-          <div className="admin-error-banner">
-            Greška: {error}
-          </div>
-        )}
+        {error && <div className="admin-error-banner">Greška: {error}</div>}
 
         {loading ? (
           <div className="admin-loading">Učitavanje...</div>
         ) : (
           <>
-            {activePage === "dashboard" && (
+            {activePage === 'dashboard' && (
               <>
                 <section className="stats-grid">
                   <StatCard
@@ -415,10 +402,7 @@ function Admin() {
                       <h2>Zadnje fotografije</h2>
                       <p>Najnoviji uploadi (svi statusi)</p>
                     </div>
-                    <button
-                      className="text-button"
-                      onClick={() => setActivePage("photos")}
-                    >
+                    <button className="text-button" onClick={() => setActivePage('photos')}>
                       Sve fotografije →
                     </button>
                   </div>
@@ -433,10 +417,8 @@ function Admin() {
                           <div className="photo-overlay">
                             <strong>{photo.guest}</strong>
                             <span>
-                              {photo.event} ·{" "}
-                              <span className={`status-tag ${photo.status}`}>
-                                {photo.status}
-                              </span>
+                              {photo.event} ·{' '}
+                              <span className={`status-tag ${photo.status}`}>{photo.status}</span>
                             </span>
                           </div>
                         </div>
@@ -451,7 +433,7 @@ function Admin() {
                       <h2>Događaji</h2>
                       <p>Pregled svih događaja</p>
                     </div>
-                    <button className="text-button" onClick={() => setActivePage("events")}>
+                    <button className="text-button" onClick={() => setActivePage('events')}>
                       Svi događaji →
                     </button>
                   </div>
@@ -469,7 +451,7 @@ function Admin() {
               </>
             )}
 
-            {activePage === "events" && (
+            {activePage === 'events' && (
               <section className="page-section">
                 <div className="page-actions">
                   <div>
@@ -491,10 +473,7 @@ function Admin() {
                     />
                   </div>
 
-                  <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                  >
+                  <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                     <option value="all">Svi statusi</option>
                     <option value="active">Aktivni</option>
                     <option value="inactive">Neaktivni</option>
@@ -515,12 +494,15 @@ function Admin() {
               </section>
             )}
 
-            {activePage === "photos" && (
+            {activePage === 'photos' && (
               <section className="page-section">
                 <div className="page-actions">
                   <div>
                     <h2>Sve fotografije</h2>
-                    <p>Fotke su gostima vidljive odmah nakon uploada. Ovdje ih možeš pregledati i ukloniti neprikladne.</p>
+                    <p>
+                      Fotke su gostima vidljive odmah nakon uploada. Ovdje ih možeš pregledati i
+                      ukloniti neprikladne.
+                    </p>
                   </div>
                 </div>
 
@@ -532,7 +514,7 @@ function Admin() {
                       <div className="gallery-large-card" key={photo.id}>
                         <img src={photo.url} alt="" />
                         <div>
-                          <strong>{photo.guestName || "Gost"}</strong>
+                          <strong>{photo.guestName || 'Gost'}</strong>
                           <span>{photo.eventName}</span>
                           {photo.message && <p className="photo-message">"{photo.message}"</p>}
                           <div className="qr-actions">
@@ -551,7 +533,7 @@ function Admin() {
               </section>
             )}
 
-            {activePage === "guests" && (
+            {activePage === 'guests' && (
               <section className="page-section">
                 <div className="page-actions">
                   <div>
@@ -561,10 +543,7 @@ function Admin() {
                 </div>
 
                 <div className="search-row">
-                  <select
-                    value={guestEventId}
-                    onChange={(e) => setGuestEventId(e.target.value)}
-                  >
+                  <select value={guestEventId} onChange={(e) => setGuestEventId(e.target.value)}>
                     <option value="">Odaberi događaj...</option>
                     {events.map((event) => (
                       <option key={event.id} value={event.id}>
@@ -586,7 +565,7 @@ function Admin() {
               </section>
             )}
 
-            {activePage === "qr" && (
+            {activePage === 'qr' && (
               <section className="page-section">
                 <div className="page-actions">
                   <div>
@@ -624,10 +603,7 @@ function Admin() {
       )}
 
       {showNewEvent && (
-        <NewEventModal
-          onClose={() => setShowNewEvent(false)}
-          onCreate={handleCreateEvent}
-        />
+        <NewEventModal onClose={() => setShowNewEvent(false)} onCreate={handleCreateEvent} />
       )}
     </div>
   );
@@ -681,15 +657,15 @@ function EventsTable({ events, onQR, onToggleActive, onDelete }) {
                 <code>{event.slug}</code>
               </td>
 
-              <td>{event.eventDate || "—"}</td>
+              <td>{event.eventDate || '—'}</td>
 
               <td>
                 <button
-                  className={`status ${event.isActive ? "active" : "draft"}`}
+                  className={`status ${event.isActive ? 'active' : 'draft'}`}
                   onClick={() => onToggleActive(event)}
                   title="Klikni za promjenu statusa"
                 >
-                  {event.isActive ? "Aktivan" : "Neaktivan"}
+                  {event.isActive ? 'Aktivan' : 'Neaktivan'}
                 </button>
               </td>
 
@@ -718,26 +694,36 @@ function EventsTable({ events, onQR, onToggleActive, onDelete }) {
 }
 
 function GuestsPanel({ guests, onAdd, onDelete }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const submit = (e) => {
     e.preventDefault();
     if (!name.trim()) return;
     onAdd({ name, email: email || undefined, phone: phone || undefined });
-    setName("");
-    setEmail("");
-    setPhone("");
+    setName('');
+    setEmail('');
+    setPhone('');
   };
 
   return (
     <section className="panel">
       <form className="search-row" onSubmit={submit}>
         <input placeholder="Ime gosta" value={name} onChange={(e) => setName(e.target.value)} />
-        <input placeholder="Email (opcionalno)" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Telefon (opcionalno)" value={phone} onChange={(e) => setPhone(e.target.value)} />
-        <button className="new-event-button" type="submit">+ Dodaj gosta</button>
+        <input
+          placeholder="Email (opcionalno)"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          placeholder="Telefon (opcionalno)"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+        <button className="new-event-button" type="submit">
+          + Dodaj gosta
+        </button>
       </form>
 
       <div className="table-wrapper">
@@ -753,14 +739,16 @@ function GuestsPanel({ guests, onAdd, onDelete }) {
           <tbody>
             {guests.length === 0 ? (
               <tr>
-                <td colSpan={4} className="empty-state">Nema još gostiju na listi.</td>
+                <td colSpan={4} className="empty-state">
+                  Nema još gostiju na listi.
+                </td>
               </tr>
             ) : (
               guests.map((guest) => (
                 <tr key={guest.id}>
                   <td>{guest.name}</td>
-                  <td>{guest.email || "—"}</td>
-                  <td>{guest.phone || "—"}</td>
+                  <td>{guest.email || '—'}</td>
+                  <td>{guest.phone || '—'}</td>
                   <td>
                     <button className="more-button danger" onClick={() => onDelete(guest.id)}>
                       Ukloni
@@ -777,9 +765,9 @@ function GuestsPanel({ guests, onAdd, onDelete }) {
 }
 
 function NewEventModal({ onClose, onCreate }) {
-  const [name, setName] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [slug, setSlug] = useState("");
+  const [name, setName] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [slug, setSlug] = useState('');
 
   const submit = (e) => {
     e.preventDefault();
@@ -790,7 +778,9 @@ function NewEventModal({ onClose, onCreate }) {
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="qr-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
+        <button className="modal-close" onClick={onClose}>
+          ×
+        </button>
         <div className="modal-heading">
           <span>NOVI DOGAĐAJ</span>
           <h2>Dodaj događaj</h2>
@@ -807,10 +797,16 @@ function NewEventModal({ onClose, onCreate }) {
           </label>
           <label>
             Slug (opcionalno, generira se automatski)
-            <input value={slug} onChange={(e) => setSlug(e.target.value)} placeholder="ana-i-marko" />
+            <input
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              placeholder="ana-i-marko"
+            />
           </label>
           <div className="modal-actions">
-            <button className="primary" type="submit">Spremi</button>
+            <button className="primary" type="submit">
+              Spremi
+            </button>
           </div>
         </form>
       </div>
@@ -819,15 +815,19 @@ function NewEventModal({ onClose, onCreate }) {
 }
 
 function QRCard({ event, onOpen }) {
-  const [qrDataUrl, setQrDataUrl] = useState("");
+  const [qrDataUrl, setQrDataUrl] = useState('');
   const link = `https://tvoja-domena.com/e/${event.slug}`;
 
   useEffect(() => {
     let cancelled = false;
     QRCode.toDataURL(link, { margin: 1, width: 160 })
-      .then((url) => { if (!cancelled) setQrDataUrl(url); })
-      .catch((err) => console.error("QR generation failed", err));
-    return () => { cancelled = true; };
+      .then((url) => {
+        if (!cancelled) setQrDataUrl(url);
+      })
+      .catch((err) => console.error('QR generation failed', err));
+    return () => {
+      cancelled = true;
+    };
   }, [link]);
 
   return (
@@ -836,14 +836,16 @@ function QRCard({ event, onOpen }) {
         {qrDataUrl ? (
           <img src={qrDataUrl} alt={`QR kod za ${event.name}`} />
         ) : (
-          <div className="fake-qr"><span>▦</span></div>
+          <div className="fake-qr">
+            <span>▦</span>
+          </div>
         )}
       </div>
 
       <div className="qr-event-info">
         <div className="status-line">
-          <span className={`status-dot ${event.isActive ? "green" : "gray"}`} />
-          {event.isActive ? "Aktivan" : "Neaktivan"}
+          <span className={`status-dot ${event.isActive ? 'green' : 'gray'}`} />
+          {event.isActive ? 'Aktivan' : 'Neaktivan'}
         </div>
 
         <h3>{event.name}</h3>
@@ -861,15 +863,19 @@ function QRCard({ event, onOpen }) {
 }
 
 function QRModal({ event, link, onClose, onRegenerate, onToggleActive }) {
-  const [qrDataUrl, setQrDataUrl] = useState("");
+  const [qrDataUrl, setQrDataUrl] = useState('');
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     QRCode.toDataURL(link, { margin: 1, width: 280 })
-      .then((url) => { if (!cancelled) setQrDataUrl(url); })
-      .catch((err) => console.error("QR generation failed", err));
-    return () => { cancelled = true; };
+      .then((url) => {
+        if (!cancelled) setQrDataUrl(url);
+      })
+      .catch((err) => console.error('QR generation failed', err));
+    return () => {
+      cancelled = true;
+    };
   }, [link]);
 
   const copyLink = async () => {
@@ -880,7 +886,7 @@ function QRModal({ event, link, onClose, onRegenerate, onToggleActive }) {
 
   const downloadPng = () => {
     if (!qrDataUrl) return;
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = qrDataUrl;
     a.download = `qr-${event.slug}.png`;
     a.click();
@@ -888,23 +894,25 @@ function QRModal({ event, link, onClose, onRegenerate, onToggleActive }) {
 
   const downloadSvg = async () => {
     try {
-      const svgString = await QRCode.toString(link, { type: "svg", margin: 1 });
-      const blob = new Blob([svgString], { type: "image/svg+xml" });
+      const svgString = await QRCode.toString(link, { type: 'svg', margin: 1 });
+      const blob = new Blob([svgString], { type: 'image/svg+xml' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = url;
       a.download = `qr-${event.slug}.svg`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.error("SVG export failed", err);
+      console.error('SVG export failed', err);
     }
   };
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="qr-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
+        <button className="modal-close" onClick={onClose}>
+          ×
+        </button>
 
         <div className="modal-heading">
           <span>QR KOD</span>
@@ -915,31 +923,37 @@ function QRModal({ event, link, onClose, onRegenerate, onToggleActive }) {
           {qrDataUrl ? (
             <img src={qrDataUrl} alt={`QR kod za ${event.name}`} />
           ) : (
-            <div className="fake-qr large"><span>▦</span></div>
+            <div className="fake-qr large">
+              <span>▦</span>
+            </div>
           )}
         </div>
 
         <div className="qr-status">
-          <span className={`status-dot ${event.isActive ? "green" : "gray"}`} />
-          {event.isActive ? "Događaj je aktivan — gosti mogu uploadati" : "Događaj je deaktiviran"}
+          <span className={`status-dot ${event.isActive ? 'green' : 'gray'}`} />
+          {event.isActive ? 'Događaj je aktivan — gosti mogu uploadati' : 'Događaj je deaktiviran'}
         </div>
 
         <div className="link-box">
           <span>{link}</span>
-          <button onClick={copyLink}>{copied ? "Kopirano!" : "Kopiraj"}</button>
+          <button onClick={copyLink}>{copied ? 'Kopirano!' : 'Kopiraj'}</button>
         </div>
 
         <div className="modal-actions">
-          <button className="primary" onClick={downloadPng}>↓ PNG</button>
-          <button className="secondary" onClick={downloadSvg}>↓ SVG</button>
-          <button className="secondary" onClick={() => window.print()}>♧ Print</button>
+          <button className="primary" onClick={downloadPng}>
+            ↓ PNG
+          </button>
+          <button className="secondary" onClick={downloadSvg}>
+            ↓ SVG
+          </button>
+          <button className="secondary" onClick={() => window.print()}>
+            ♧ Print
+          </button>
         </div>
 
         <div className="danger-actions">
           <button onClick={onRegenerate}>Regeneriraj QR (rotira link)</button>
-          <button onClick={onToggleActive}>
-            {event.isActive ? "Deaktiviraj" : "Aktiviraj"}
-          </button>
+          <button onClick={onToggleActive}>{event.isActive ? 'Deaktiviraj' : 'Aktiviraj'}</button>
         </div>
       </div>
     </div>
