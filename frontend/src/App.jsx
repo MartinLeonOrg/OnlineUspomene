@@ -1,7 +1,7 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Demo from "./pages/Demo.jsx";
-import Admin from "./pages/Admin.jsx";
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Demo from './pages/Demo.jsx';
+import Admin from './pages/Admin.jsx';
 
 function Home() {
   return (
@@ -40,7 +40,7 @@ function Home() {
             </h1>
 
             <p className="hero-description">
-              Kreiramo moderne, pozivnice i digitalne uspomene koje ostavljaju dojam i traju
+              Kreiramo moderne pozivnice i digitalne uspomene koje ostavljaju dojam i traju
               zauvijek.
             </p>
 
@@ -59,7 +59,7 @@ function Home() {
           <div className="hero-visual">
             <div className="visual-card card-main">
               <div className="visual-text">
-                <img src="/home2.jpg" alt="Primjer digitalne pozivnice" />
+                <img src="/home2.png" alt="Primjer digitalne pozivnice" />
               </div>
             </div>
 
@@ -105,7 +105,7 @@ function Home() {
           <div className="invitation-grid">
             <article className="invitation-card">
               <div className="invitation-preview">
-                <img src="/invitation.png" alt="Primjer digitalne pozivnice" />
+                <img src="/pozivnica1.png" alt="Primjer digitalne pozivnice" />
               </div>
 
               <div className="invitation-info">
@@ -120,7 +120,7 @@ function Home() {
 
             <article className="invitation-card">
               <div className="invitation-preview">
-                <img src="/invitation.png" alt="Primjer digitalne pozivnice" />
+                <img src="/pozivnica2.png" alt="Primjer digitalne pozivnice" />
               </div>
 
               <div className="invitation-info">
@@ -135,7 +135,7 @@ function Home() {
 
             <article className="invitation-card">
               <div className="invitation-preview">
-                <img src="/invitation.png" alt="Primjer digitalne pozivnice" />
+                <img src="/pozivnica3.png" alt="Primjer digitalne pozivnice" />
               </div>
 
               <div className="invitation-info">
@@ -206,8 +206,6 @@ function Home() {
                 Gost jednostavno skenira QR kod svojim mobitelom i odmah pristupa mjestu gdje dijeli
                 uspomene.
               </p>
-
-              <div className="process-tag">Bez aplikacije</div>
             </article>
 
             {/* 02 */}
@@ -241,8 +239,6 @@ function Home() {
                 Fotografije i videozapise koje su gosti snimili mogu prenijeti direktno sa svog
                 mobitela.
               </p>
-
-              <div className="process-tag">Jednostavno učitavanje</div>
             </article>
 
             {/* 03 */}
@@ -272,8 +268,6 @@ function Home() {
                 Sve uspomene ostaju na jednom mjestu, u punoj kvaliteti, spremne za pregledavanje i
                 preuzimanje.
               </p>
-
-              <div className="process-tag">Puna kvaliteta</div>
             </article>
           </div>
 
@@ -288,8 +282,8 @@ function Home() {
               </h3>
 
               <p>
-                Gosti vide događaj svojim očima. ReMoment ti omogućuje
-                da vidiš sve te trenutke na jednom mjestu.
+                Gosti vide događaj svojim očima. ReMoment ti omogućuje da vidiš sve te trenutke na
+                jednom mjestu.
               </p>
             </div>
 
@@ -322,80 +316,65 @@ function Home() {
           </div>
 
           <div className="pricing-grid">
+            {/* OSNOVNI */}
+            <div className="price-card">
+              <span>OSNOVNI PAKET</span>
 
-  {/* OSNOVNI */}
-  <div className="price-card">
-    <span>OSNOVNI PAKET</span>
+              <h3>9.99 €</h3>
 
-    <h3>9.99 €</h3>
+              <div className="price-features">
+                <p>Jedan od gotovih dizajna pozivnica.</p>
+                <p>Jedinstveni QR kod za događaj.</p>
+                <p>Gosti mogu učitati fotografije.</p>
+                <p>Fotografije u punoj kvaliteti.</p>
+                <p>Preuzimanje fotografija.</p>
+                <p>Galerija dostupna 30 dana.</p>
+              </div>
 
-    <div className="price-features">
-      <p>Jedan od gotovih dizajna pozivnica.</p>
-      <p>Jedinstveni QR kod za događaj.</p>
-      <p>Gosti mogu učitati fotografije.</p>
-      <p>Fotografije u punoj kvaliteti.</p>
-      <p>Preuzimanje fotografija.</p>
-      <p>Galerija dostupna 30 dana.</p>
-    </div>
+              <a href="#kontakt">Odaberi paket →</a>
+            </div>
 
-    <a href="#kontakt">
-      Odaberi paket →
-    </a>
-  </div>
+            {/* STANDARD */}
+            <div className="price-card popular">
+              <div className="popular-label">NAJPOPULARNIJE</div>
 
+              <span>STANDARD PAKET</span>
 
-  {/* STANDARD */}
-  <div className="price-card popular">
+              <h3>13.99 €</h3>
 
-    <div className="popular-label">
-      NAJPOPULARNIJE
-    </div>
+              <div className="previous-package">
+                <span>✓</span>
+                Sve iz Osnovnog paketa
+              </div>
 
-    <span>STANDARD PAKET</span>
+              <div className="price-features">
+                <p>Prilagodba osnovnog dizajna pozivnice.</p>
+                <p>Poruke gostiju uz fotografije.</p>
+                <p>Galerija dostupna 90 dana.</p>
+              </div>
 
-    <h3>13.99 €</h3>
+              <a href="#kontakt">Odaberi paket →</a>
+            </div>
 
-    <div className="previous-package">
-      <span>✓</span>
-      Sve iz Osnovnog paketa
-    </div>
+            {/* PREMIUM */}
+            <div className="price-card">
+              <span>PREMIUM PAKET</span>
 
-    <div className="price-features">
-      <p>Prilagodba osnovnog dizajna pozivnice.</p>
-      <p>Poruke gostiju uz fotografije.</p>
-      <p>Galerija dostupna 90 dana.</p>
-    </div>
+              <h3>€17.99 €</h3>
 
-    <a href="#kontakt">
-      Odaberi paket →
-    </a>
-  </div>
+              <div className="previous-package">
+                <span>✓</span>
+                Sve iz Standard paketa
+              </div>
 
+              <div className="price-features">
+                <p>Potpuno custom rješenje prema vašim potrebama.</p>
+                <p>Napredna personalizacija.</p>
+              </div>
 
-  {/* PREMIUM */}
-  <div className="price-card">
-
-    <span>PREMIUM PAKET</span>
-
-    <h3>€17.99 €</h3>
-
-    <div className="previous-package">
-      <span>✓</span>
-      Sve iz Standard paketa
-    </div>
-
-    <div className="price-features">
-      <p>Potpuno custom rješenje prema vašim potrebama.</p>
-      <p>Napredna personalizacija.</p>
-    </div>
-
-    <a href="#kontakt">
-      Kontaktiraj nas →
-    </a>
-  </div>
-
-</div>
-            
+              <a href="#kontakt">Kontaktiraj nas →</a>
+            </div>
+          </div>
         </section>
 
         <section className="contact-section" id="kontakt">

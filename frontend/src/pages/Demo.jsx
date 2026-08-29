@@ -460,7 +460,7 @@ export default function WeddingApp() {
                 textTransform: 'uppercase',
               }}
             >
-              ✦ &nbsp; Hvala vam što ste s nama &nbsp; ✦
+              ✦ &nbsp; Hvala vam što ste s nama u svakom trenutku&nbsp; ✦
             </div>
           </div>
         )}
@@ -819,9 +819,9 @@ export default function WeddingApp() {
                   marginBottom: 10,
                 }}
               >
-                Zajednički trenuci
+                Zajednički trenutci
               </div>
-              <div style={{ fontSize: 36, fontStyle: 'italic' }}>Galeria</div>
+              <div style={{ fontSize: 36, fontStyle: 'italic' }}>Galerija</div>
               <div style={{ width: 40, height: 1, background: '#b8916a', margin: '14px auto' }} />
               <div style={{ fontSize: 13, color: '#8a7060' }}>
                 {loadingGallery
