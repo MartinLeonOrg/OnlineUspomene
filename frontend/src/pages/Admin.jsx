@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import QRCode from 'qrcode';
 import './Admin.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+const API_URL = import.meta.env.VITE_WORKER_URL || 'https://online-uspomene-api.mciko-wedding.workers.dev';
 const ADMIN_KEY = import.meta.env.VITE_ADMIN_API_KEY || '';
 
 // ---------------------------------------------------------------------------
