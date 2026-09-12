@@ -1,1 +1,9 @@
-/* /index.html 200
+# Netlify: any /e/:slug path must serve the SPA's index.html so React
+# can read the slug from window.location.pathname and render the right
+# event. Without this, directly opening a QR link (not navigating via
+# in-app JS) 404s because Netlify has no server-side route for /e/*.
+#
+# Place this file at the project root as `public/_redirects` (Vite copies
+# everything in `public/` to the build output as-is).
+
+/e/*  /index.html  200
