@@ -856,12 +856,11 @@ function PhotoFolders({ photos, onDelete }) {
 function NewEventModal({ onClose, onCreate }) {
   const [name, setName] = useState('');
   const [eventDate, setEventDate] = useState('');
-  const [slug, setSlug] = useState('');
 
   const submit = (e) => {
     e.preventDefault();
     if (!name.trim()) return;
-    onCreate({ name, eventDate: eventDate || undefined, slug: slug || undefined });
+    onCreate({ name, eventDate: eventDate || undefined });
   };
 
   return (
@@ -884,14 +883,9 @@ function NewEventModal({ onClose, onCreate }) {
             Datum
             <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
           </label>
-          <label>
-            Slug (opcionalno, generira se automatski)
-            <input
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-              placeholder="ana-i-marko"
-            />
-          </label>
+          <small>
+            Sigurnosni link se generira automatski nakon spremanja — nije ga moguće ručno postaviti.
+          </small>
           <div className="modal-actions">
             <button className="primary" type="submit">
               Spremi

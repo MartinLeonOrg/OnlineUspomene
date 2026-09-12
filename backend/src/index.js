@@ -1046,7 +1046,7 @@ function mapGuestRow(row) {
 }
 
 function generateSlug() {
-  return crypto.randomUUID().replace(/-/g, "").slice(0, 10);
+  return crypto.randomUUID().replace(/-/g, ""); 
 }
 
 function slugify(text) {
