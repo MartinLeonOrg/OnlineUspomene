@@ -2,7 +2,6 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Demo from './pages/Demo.jsx';
 import Admin from './pages/Admin.jsx';
-import Event from './pages/Event.jsx';
 
 function Home() {
   return (
@@ -481,7 +480,6 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/demo" element={<Demo />} />
       <Route path="/admin" element={<Admin />} />
-      <Route path="/e/:slug" element={<Event />} />
     </Routes>
   );
 }
