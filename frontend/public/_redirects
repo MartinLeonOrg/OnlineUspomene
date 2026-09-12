@@ -6,4 +6,5 @@
 # Place this file at the project root as `public/_redirects` (Vite copies
 # everything in `public/` to the build output as-is).
 
-/e/*  /index.html  200
+
+/*  /index.html  200
